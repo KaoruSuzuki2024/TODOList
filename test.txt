@@ -1,0 +1,2 @@
+INSERT INTO todo_list.users values(1,'deadline','鳥頭忘太郎');
+INSERT INTO todo_list.tasks(user_id,task_title,task_deadline,task_priority,task_content,task_check) values(1,'9:00から朝会あり',5,'朝会で昨日の進捗を報告する',false);
