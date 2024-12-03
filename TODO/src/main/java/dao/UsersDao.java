@@ -29,6 +29,7 @@ public class UsersDao {
 		}
 	}
 	
+	//ユーザーデータを取得するメソッド
 	public UsersBean searchUser(String user_id) throws SQLException{
 		UsersBean bean = new UsersBean();
 		ResultSet rs = null;
