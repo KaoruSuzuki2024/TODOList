@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import bean.UsersBean;
+
 public class UsersDao {
 	private Connection connection;
 	
@@ -27,8 +29,8 @@ public class UsersDao {
 		}
 	}
 	
-	public UserBean searchUser(String user_id) throws SQLException{
-		UserBean bean = new UserBean();
+	public UsersBean searchUser(String user_id) throws SQLException{
+		UsersBean bean = new UsersBean();
 		ResultSet rs = null;
 		PreparedStatement pstatement = null;
 		try {
