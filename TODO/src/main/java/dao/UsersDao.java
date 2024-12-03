@@ -13,7 +13,7 @@ public class UsersDao {
 	
 	public UsersDao() throws ClassNotFoundException,SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/java_web_system?useSSL=false";
+		String url = "jdbc:mysql://localhost:3306/todo_list?useSSL=false";
 		String user = "root";
 		String password = "root";
 		connection = DriverManager.getConnection(url,user,password);
@@ -29,6 +29,7 @@ public class UsersDao {
 		}
 	}
 	
+	//ユーザーデータを取得するメソッド
 	public UsersBean searchUser(String user_id) throws SQLException{
 		UsersBean bean = new UsersBean();
 		ResultSet rs = null;
