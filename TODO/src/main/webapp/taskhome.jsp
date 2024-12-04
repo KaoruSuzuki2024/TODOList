@@ -50,12 +50,14 @@
 <td><c:out value="${task.priority }"/></td>
 <td>
 <form action="home" method="post">
+<input type="hidden" name="taskid" value="${task.task_id }">
 <input type="hidden" name="btn" value="delete">
 <input type="submit" value="削除">
 </form>
 </td>
 <td>
 <form action="home" method="post">
+<input type="hidden" name="taskid" value="${task.task_id }">
 <input type="hidden" name="btn" value="update">
 <input type="submit" value="編集">
 </form>
