@@ -35,13 +35,13 @@ public class TaskDao {
 	}
 
 
-	//受け取ったTaskBeanを新規登録するメソッド
+	//受け取ったTaskBeanをもとにデータベースにタスクを新規登録するメソッド
 	public void insertTask(TaskBean tBean) throws SQLException{
 		PreparedStatement pstatement = null;
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "INSERT INTO tasks(use_id,task_title,task_deadline,task_priority,task_content,task_check) values(?,?,?,?,?,?);";
+			String sql = "INSERT INTO tasks(user_id,task_title,task_deadline,task_priority,task_content,task_check) values(?,?,?,?,?,?);";
 			pstatement = connection.prepareStatement(sql);
 			
 			pstatement.setInt(1, tBean.getUser_id());
@@ -60,7 +60,7 @@ public class TaskDao {
 		}	
 	}
 	
-	//受け取ったTaskBeanを更新するメソッド
+	//受け取ったTaskBeanをもとにデータベースを更新するメソッド
 	public void updateTask(TaskBean tBean)throws SQLException {
 		PreparedStatement pstatement = null;
 		
@@ -85,7 +85,7 @@ public class TaskDao {
 		}	
 	}
 	
-	//受け取ったTaskBeanを削除するメソッド
+	//受け取ったタスクIDをもとにデータベースからタスクを削除するメソッド
 	public void deleteTask(String task_id)throws SQLException {
 		PreparedStatement pstatement = null;
 		
