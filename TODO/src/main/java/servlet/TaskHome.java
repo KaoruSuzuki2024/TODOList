@@ -53,8 +53,16 @@ public class TaskHome extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String btn = request.getParameter("btn");
+		String sort = "dead";
+		String jsp;
+		if(btn != null && !btn.isEmpty()) {
+			if(btn.equals("logout")) {
+				
+			}
+		}
+		
 	}
 
 }
