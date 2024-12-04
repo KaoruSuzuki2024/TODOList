@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.UserLogin;
+
 /**
  * Servlet implementation class UserLogin2
  */
@@ -21,7 +23,7 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession user = request.getSession(true);
 		// JSP への転送
@@ -35,11 +37,19 @@ public class Login extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
 		String message;
+		String jsp;
 		HttpSession session = request.getSession(true);
-		//idとpwでログイン判定を行う
-	}
 
+		//ログイン判定を行う
+		UserLogin ul = new UserLogin();
+		try {
+			jsp = ul.execute(request);
+			ServletContext context = getServletContext();
+			RequestDispatcher rd = context.getRequestDispatcher(jsp);
+			rd.forward(request, response);
+		}catch(Exception ex) {
+			//例外処理
+		}
+	}
 }
