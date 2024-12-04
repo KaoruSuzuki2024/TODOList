@@ -142,7 +142,7 @@ public class TaskDao {
 	}
 	
 	
-	public ArrayList<TaskBean> searchAchiveDead(){
+	public ArrayList<TaskBean> searchAchiveDead() throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -157,7 +157,6 @@ public class TaskDao {
 			rs = pstatement.executeQuery();
 			
 			while(rs.next()) {
-				
 				//列名を指定してResultSetオブジェクトから値を取得
 				tb.setUser_id(rs.getInt("user_id"));
 				tb.setTask_id(rs.getInt("task_id"));
@@ -168,6 +167,7 @@ public class TaskDao {
 				tb.setCheck(rs.getBoolean("check"));
 				arrayTb.add(tb);
 			}
+			
 			//ResultSetオブジェクトの解放
 			rs.close();
 		}finally {
@@ -178,7 +178,7 @@ public class TaskDao {
 	}
 	
 	
-	public ArrayList<TaskBean> searchAchivePriority(){
+	public ArrayList<TaskBean> searchAchivePriority() throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -214,7 +214,7 @@ public class TaskDao {
 	}
 	
 	
-	public ArrayList<TaskBean> searchUnachiveDead(){
+	public ArrayList<TaskBean> searchUnachiveDead() throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -250,7 +250,7 @@ public class TaskDao {
 	}
 	
 	
-	public ArrayList<TaskBean> searchUnachivePriority(){
+	public ArrayList<TaskBean> searchUnachivePriority() throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
