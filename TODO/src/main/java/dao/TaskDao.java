@@ -125,11 +125,11 @@ public class TaskDao {
 				//列名を指定してResultSetオブジェクトから値を取得
 				tb.setUser_id(rs.getInt("user_id"));
 				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("title"));
-				tb.setDeadline(rs.getDate("deadline"));
-				tb.setPriority(rs.getInt("priority"));
-				tb.setContent(rs.getString("content"));
-				tb.setCheck(rs.getBoolean("check"));
+				tb.setTitle(rs.getString("task_title"));
+				tb.setDeadline(rs.getDate("task_deadline"));
+				tb.setPriority(rs.getInt("task_priority"));
+				tb.setContent(rs.getString("task_content"));
+				tb.setCheck(rs.getBoolean("task_check"));
 			}
 			//ResultSetオブジェクトの解放
 			rs.close();
@@ -162,11 +162,11 @@ public class TaskDao {
 				//列名を指定してResultSetオブジェクトから値を取得
 				tb.setUser_id(rs.getInt("user_id"));
 				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("title"));
-				tb.setDeadline(rs.getDate("deadline"));
-				tb.setPriority(rs.getInt("priority"));
-				tb.setContent(rs.getString("content"));
-				tb.setCheck(rs.getBoolean("check"));
+				tb.setTitle(rs.getString("task_title"));
+				tb.setDeadline(rs.getDate("task_deadline"));
+				tb.setPriority(rs.getInt("task_priority"));
+				tb.setContent(rs.getString("task_content"));
+				tb.setCheck(rs.getBoolean("task_check"));
 				arrayTb.add(tb);
 			}
 			
@@ -188,7 +188,7 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = TRUE ORDER BY task_priority DESC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = TRUE ORDER BY task_priority DESC,task_deadline ASC;";
 			pstatement = connection.prepareStatement(sql);
 			
 			//INパラメータの設定
@@ -201,11 +201,11 @@ public class TaskDao {
 				//列名を指定してResultSetオブジェクトから値を取得
 				tb.setUser_id(rs.getInt("user_id"));
 				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("title"));
-				tb.setDeadline(rs.getDate("deadline"));
-				tb.setPriority(rs.getInt("priority"));
-				tb.setContent(rs.getString("content"));
-				tb.setCheck(rs.getBoolean("check"));
+				tb.setTitle(rs.getString("task_title"));
+				tb.setDeadline(rs.getDate("task_deadline"));
+				tb.setPriority(rs.getInt("task_priority"));
+				tb.setContent(rs.getString("task_content"));
+				tb.setCheck(rs.getBoolean("task_check"));
 				arrayTb.add(tb);
 			}
 			//ResultSetオブジェクトの解放
@@ -226,7 +226,7 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = FALSE ORDER BY CASE task_deadline ASC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = FALSE ORDER BY task_deadline ASC;";
 			pstatement = connection.prepareStatement(sql);
 			
 			//INパラメータの設定
@@ -239,11 +239,11 @@ public class TaskDao {
 				//列名を指定してResultSetオブジェクトから値を取得
 				tb.setUser_id(rs.getInt("user_id"));
 				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("title"));
-				tb.setDeadline(rs.getDate("deadline"));
-				tb.setPriority(rs.getInt("priority"));
-				tb.setContent(rs.getString("content"));
-				tb.setCheck(rs.getBoolean("check"));
+				tb.setTitle(rs.getString("task_title"));
+				tb.setDeadline(rs.getDate("task_deadline"));
+				tb.setPriority(rs.getInt("task_priority"));
+				tb.setContent(rs.getString("task_content"));
+				tb.setCheck(rs.getBoolean("task_check"));
 				arrayTb.add(tb);
 			}
 			//ResultSetオブジェクトの解放
@@ -264,7 +264,7 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = FALSE ORDER BY task_priority DESC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = FALSE ORDER BY task_priority DESC,task_deadline ASC;";
 			pstatement = connection.prepareStatement(sql);
 			
 			//INパラメータの設定
@@ -277,11 +277,11 @@ public class TaskDao {
 				//列名を指定してResultSetオブジェクトから値を取得
 				tb.setUser_id(rs.getInt("user_id"));
 				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("title"));
-				tb.setDeadline(rs.getDate("deadline"));
-				tb.setPriority(rs.getInt("priority"));
-				tb.setContent(rs.getString("content"));
-				tb.setCheck(rs.getBoolean("check"));
+				tb.setTitle(rs.getString("task_title"));
+				tb.setDeadline(rs.getDate("task_deadline"));
+				tb.setPriority(rs.getInt("task_priority"));
+				tb.setContent(rs.getString("task_content"));
+				tb.setCheck(rs.getBoolean("task_check"));
 				arrayTb.add(tb);
 			}
 			//ResultSetオブジェクトの解放
