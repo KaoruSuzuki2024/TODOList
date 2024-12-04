@@ -141,7 +141,7 @@ public class TaskDao {
 	}
 	
 	//達成済みがTRUEのタスクを締め切りが近い順に取得するメソッド
-	public ArrayList<TaskBean> searchAchiveDead() throws SQLException{
+	public ArrayList<TaskBean> searchAchiveDead(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -149,8 +149,11 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE task_check = TRUE ORDER BY task_deadline ASC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = TRUE ORDER BY task_deadline ASC;";
 			pstatement = connection.prepareStatement(sql);
+			
+			//INパラメータの設定
+			pstatement.setInt(1,Integer.parseInt(user_id));
 			
 			//SQLを発行し、抽出結果が格納されたResultSetオブジェクトを取得
 			rs = pstatement.executeQuery();
@@ -177,7 +180,7 @@ public class TaskDao {
 	}
 	
 	//達成済みがTRUEのタスクを優先度が高い順に取得するメソッド
-	public ArrayList<TaskBean> searchAchivePriority() throws SQLException{
+	public ArrayList<TaskBean> searchAchivePriority(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -185,8 +188,11 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE task_check = TRUE ORDER BY task_priority DESC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = TRUE ORDER BY task_priority DESC;";
 			pstatement = connection.prepareStatement(sql);
+			
+			//INパラメータの設定
+			pstatement.setInt(1,Integer.parseInt(user_id));
 			
 			//SQLを発行し、抽出結果が格納されたResultSetオブジェクトを取得
 			rs = pstatement.executeQuery();
@@ -212,7 +218,7 @@ public class TaskDao {
 	}
 	
 	//達成済みがFALSEのタスクを締め切りが近い順に取得するメソッド
-	public ArrayList<TaskBean> searchUnachiveDead() throws SQLException{
+	public ArrayList<TaskBean> searchUnachiveDead(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -220,8 +226,11 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE task_check = FALSE ORDER BY CASE task_deadline ASC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = FALSE ORDER BY CASE task_deadline ASC;";
 			pstatement = connection.prepareStatement(sql);
+			
+			//INパラメータの設定
+			pstatement.setInt(1,Integer.parseInt(user_id));
 			
 			//SQLを発行し、抽出結果が格納されたResultSetオブジェクトを取得
 			rs = pstatement.executeQuery();
@@ -247,7 +256,7 @@ public class TaskDao {
 	}
 	
 	//達成済みがFALSEのタスクを優先度が高い順に取得するメソッド
-	public ArrayList<TaskBean> searchUnachivePriority() throws SQLException{
+	public ArrayList<TaskBean> searchUnachivePriority(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
 		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
@@ -255,8 +264,11 @@ public class TaskDao {
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
-			String sql = "SELECT * FROM tasks WHERE task_check = FALSE ORDER BY task_priority DESC;";
+			String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_check = FALSE ORDER BY task_priority DESC;";
 			pstatement = connection.prepareStatement(sql);
+			
+			//INパラメータの設定
+			pstatement.setInt(1,Integer.parseInt(user_id));
 			
 			//SQLを発行し、抽出結果が格納されたResultSetオブジェクトを取得
 			rs = pstatement.executeQuery();

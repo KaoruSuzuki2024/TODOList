@@ -8,7 +8,26 @@
 	<header><h1>様、達成済みタスク一覧</h1>
 </head>
 <body>
-	<input type=submit value = "選択解除"
+	<tr>
+		<th>締切日</th>
+		<th>タイトル</th>
+		<th>優先度</th>
+	</tr>
+	<c:forEach >
+		<tr>
+			<td><input type = "checkbox" name = "chk"></td>
+			<td>${requestScope.}</td><!-締切日->
+			<td>${requestScope.}</td><!-タイトル->
+			<td>${requestScope.}</td><!-優先度->
+			<p>Congratulations!!</p>
+		</tr>
+		<form action ="" method ="post">
+			<input type = submit name  ="btn" value = "選択削除">
+			<input type = submit name = "btn" value = "未達成に戻す">
+			<imput type = submit name = "btn" value = "締切順">
+			<imput type = submit name = "btn" value = "ホーム">
+		</form>
+	</c:forEach>
 
 </body>
 </html>
