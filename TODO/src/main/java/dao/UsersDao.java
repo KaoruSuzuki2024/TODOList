@@ -39,7 +39,7 @@ public class UsersDao {
 			pstatement = connection.prepareStatement(sql);
 			pstatement.setInt(1, Integer.parseInt(user_id));
 			rs = pstatement.executeQuery();
-			if(!rs.next()) {
+			if(rs.next()) {
 				bean.setId(rs.getInt("user_id"));
 				bean.setName(rs.getString("user_name"));
 				bean.setPassword(rs.getString("user_pass"));
