@@ -13,7 +13,7 @@ public class UsersDao {
 	
 	public UsersDao() throws ClassNotFoundException,SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/todo_list?useSSL=false";
+		String url = "jdbc:mysql://localhost:3306/java_web_system?useSSL=false";
 		String user = "root";
 		String password = "root";
 		connection = DriverManager.getConnection(url,user,password);
@@ -35,7 +35,7 @@ public class UsersDao {
 		ResultSet rs = null;
 		PreparedStatement pstatement = null;
 		try {
-			String sql = "select * from user_shop where user_name=?";
+			String sql = "select * from users where user_id=?";
 			pstatement = connection.prepareStatement(sql);
 			pstatement.setInt(1, Integer.parseInt(user_id));
 			rs = pstatement.executeQuery();
