@@ -14,10 +14,10 @@
 	<main>
 		<form action="controller" method="post">
 			<p>IDとPWを入力してください</p>
-			<% String message = "test";%>	<!-- 本来はサーブレット側でメッセージの内容を記載 -->
-			<p><%=message %></p>			<!-- Login.javaから変数を受け取る -->
-			<p>ID：<input type="text" name="id"></p>
-			<p>PW：<input type="text" name="pw"></p>
+			<p><% String message = "test";%></p>	<!-- 本来はサーブレット側でメッセージの内容を記載 -->
+			<p><%=message %></p>					<!-- Login.javaから変数を受け取る -->
+			<p>ID：<input type="text" name="Iid" placeholder="01234567"></p>		<!-- nameを後に修正 -->
+			<p>PW：<input type="password" name="Ipw" placeholder="********"></p>	<!-- cssで*表示が可能 -->
 			<input type="button" name="login" value="ログイン">
 		</form>
 

@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession(true);
+		HttpSession user = request.getSession(true);
 		// JSP への転送
 		ServletContext context = getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher("/login.jsp");
@@ -37,6 +37,7 @@ public class Login extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
+		String message;
 		HttpSession session = request.getSession(true);
 		//idとpwでログイン判定を行う
 	}
