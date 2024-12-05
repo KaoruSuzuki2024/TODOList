@@ -21,8 +21,8 @@ public class SearchTask {
 			Date date = bean.getDeadline(); // ここでDate型の変数を取得
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        String formattedDate = formatter.format(date);
-	        request.setAttribute("date", formattedDate);
-			request.setAttribute("task", bean);
+	        request.setAttribute("taskdate", formattedDate);
+			request.setAttribute("taskdata", bean);
 			jsp = "/TaskEdit.jsp";
 		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック

@@ -35,6 +35,9 @@
 <p><input type="submit" value="優先度順"></p>
 <%} %>
 </form>
+<form action="achieve" method="get">
+<input type="submit" value="達成済み">
+</form>
 <table border="1">
 <tr>
 <th>締切日</th>

@@ -105,7 +105,7 @@ public class TaskDaoTest {
 				}
 			}else if(flg == 5) {//更新
 				bean = dao.searchTask(id);
-				bean.setTitle("更新後");
+				bean.setTitle("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 				//bean.setTitle(null);//テスト項目No.14実行時にコメントを外してください
 				int numRow = dao.updateTask(bean);
 				if(numRow > 0) {
@@ -116,7 +116,7 @@ public class TaskDaoTest {
 			}else if(flg == 6) {//新規追加
 				bean = dao.searchTask(id);
 				bean.setUser_id(1);
-				bean.setTitle("自己学習");
+				bean.setTitle(null);
 				bean.setPriority(1);
 				bean.setContent("スキルアップのための勉強");
 				bean.setCheck(false);
