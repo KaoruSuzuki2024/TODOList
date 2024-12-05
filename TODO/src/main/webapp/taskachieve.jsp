@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header>
-	<h1>${sessionScope.userbean.name }様、達成済みタスク一覧</h1>
+		<h1>${sessionScope.userbean.name }様、達成済みタスク一覧</h1>
 	</header>
 	<main>
 		<form action="achieve" method="post">
@@ -30,13 +30,19 @@
 				String sort = (String)request.getAttribute("sort");
 				if(sort.equals("dead")){
 			%>
-			<p><input type="submit" value="締切順"></p>
+					<p><input type="submit" value="締切順"></p>
 			<%
 				}else if(sort.equals("priority")){
 			%>
-			<p><input type="submit" value="優先度順"></p>
-			<%} %>
+					<p><input type="submit" value="優先度順"></p>
+			<%	} //if%>
+		</form
+
+		<form action = "achieve" method = "post">
+			<input type="hidden" name="btn" value="home">
+			<input type="submit" value="ホーム">
 		</form>
+		
 		<table border="1">
 			<tr>
 				<th></th>
@@ -45,10 +51,10 @@
 				<th>優先度</th>
 				<th></th>
 			<tr>
-			<c:forEach var="task" items="${requestScope.tasks }">
+			<c:forEach var="task" items="${requestScope.achievedtasks }">
 				<tr>
 					<form action = "achieve" method = "post">
-						<input type = "hidden" name = "taskid" value = "">
+						<input type = "hidden" name = "taskid" value = "${task.task_id }">
 						<input type = "checkbox" name = "achievetask">
 					</form>
 					<td><fmt:formatDate value="${task.deadline }" type="DATE" pattern="yyyy/MM/dd"/></td>
