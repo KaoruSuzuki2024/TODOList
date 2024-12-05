@@ -16,17 +16,19 @@ public class UserLogin {
 
 		try {
 			if (id != null && !id.isEmpty()) {
+				int numcheck = Integer.parseInt(id);	//idがint型かの確認(異なる場合は例外判定)
 				ud = new UsersDao();
 				UsersBean ub = ud.searchUser(id);
 				if (password == ub.getPassword()) {
-					/*ログイン処理*/
+					//ログイン処理で遷移するページのURLを格納
 					jsp = "/taskhome.jsp";
-				} //else {request.setAttribute("message", "IDとPWが一致しません");}
+				} else {request.setAttribute("message", "IDとPWが一致しません");}
 			} else {
-				request.setAttribute("message", "IDとPWが一致しません");
+				request.setAttribute("message", "IDとPWが一致しません(IDかPWが未入力)");
 			}
 		} catch (Exception ex) {
 			//例外処理
+			System.out.println("IDには数値を入力してください");
 		} finally {
 			if (ud != null) {
 				ud.close();
