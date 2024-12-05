@@ -9,13 +9,13 @@ import bean.TaskBean;
 import dao.TaskDao;
 
 public class CreatUnachievedPriority {
-	public void execute(HttpServletRequest request){
+	public void execute(HttpServletRequest request,String user_id){
 		//リストを作成しrequestに入れる
 		ArrayList<TaskBean> list = new ArrayList<TaskBean>();
 		TaskDao dao = null;
 		try {
 			dao = new TaskDao();
-			list = dao.searchUnachivePriority();
+			list = dao.searchUnachivePriority(user_id);
 			request.setAttribute("tasks", list);
 		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック
