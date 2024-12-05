@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import bean.UsersBean;
 import service.CreatAchievedDead;
 import service.CreatAchievedPriority;
+import service.DeleteTask;
 
 /**
  * Servlet implementation class TaskAchive
@@ -30,19 +31,26 @@ public class TaskAchieve extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		UsersBean user = (UsersBean) session.getAttribute("user");
 		String jsp;
+		//ログイン画面と接続するまで
+		user = new UsersBean();
+		user.setId(1);
 		//ログインされてなければログインページに飛ぶ
-		
+		if(user == null) {
+			jsp = "/login.jsp";
+		}else {
 			//タスク一覧を作成
 			CreatAchievedDead search = new CreatAchievedDead();
 			try {
-				search.execute(request);
+				search.execute(request,Integer.toString(user.getId()));
 				jsp = "/taskachieve.jsp";
 				request.setAttribute("sort", "dead");
 			} catch (Exception e) {
+				
 				System.out.println("リストの作成に失敗しました。");
 				e.printStackTrace();
 				jsp = "/error.jsp";
 			}
+		}
 		
 		ServletContext context = getServletContext();
 		RequestDispatcher rd = context.getRequestDispatcher(jsp);
@@ -57,6 +65,10 @@ public class TaskAchieve extends HttpServlet {
 		String btn = request.getParameter("btn");
 		String sort = "dead";
 		String jsp;
+		HttpSession session = request.getSession(false);
+		UsersBean user = (UsersBean)session.getAttribute("user");
+		user = new UsersBean();
+		user.setId(1);
 		try {
 			if(btn != null && !btn.isEmpty()) {
 				if(btn.equals("sort")) {
@@ -67,7 +79,7 @@ public class TaskAchieve extends HttpServlet {
 						sort = "priority";
 					}else if(nowsort.equals("priority")) {
 						CreatAchievedDead search = new CreatAchievedDead();
-						search.execute(request);
+						search.execute(request,Integer.toString(user.getId()));
 						sort = "dead";
 					}
 					jsp = "/taskachieve.jsp";
@@ -77,9 +89,16 @@ public class TaskAchieve extends HttpServlet {
 					request.setAttribute("task_id", tasksid);
 					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
-				}else if(btn.equals("yes")) {//check.jspから戻ってきたときの処理（deleteの処理）
+				}else if(btn.equals("yes")) {//check.jspからyesで戻ってきたときの処理（deleteの処理）
 					String[] tasksid = request.getParameterValues("tasksid");
+					DeleteTask delete = new DeleteTask();
+					for(String s : tasksid) {
+						request.setAttribute("delete", s);
+						delete.execute(request);
+					}
 					
+					jsp = "/taskachieve.jsp";
+				}else if(btn.equals("no")) {//check.jspからnoで戻ってきたときの処理（deleteの処理）
 					
 					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("unachieve")) {
