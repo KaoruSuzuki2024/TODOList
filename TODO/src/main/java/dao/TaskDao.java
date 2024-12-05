@@ -36,8 +36,9 @@ public class TaskDao {
 
 
 	//受け取ったTaskBeanをもとにデータベースにタスクを新規登録するメソッド
-	public void insertTask(TaskBean tBean) throws SQLException{
+	public int insertTask(TaskBean tBean) throws SQLException{
 		PreparedStatement pstatement = null;
+		int numRow = 0;
 		
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
@@ -52,18 +53,24 @@ public class TaskDao {
 			pstatement.setBoolean(6, tBean.isCheck());
 			
 			//INSERTを実行
-			pstatement.executeUpdate();
+			numRow = pstatement.executeUpdate();
 
 		}finally {
+			if(numRow > 0) {
+				connection.commit();
+			}else {
+				connection.rollback();
+			}
 			//PreparedStatementオブジェクトの解放
 			pstatement.close();
 		}	
+		return numRow;
 	}
 	
 	//受け取ったTaskBeanをもとにデータベースを更新するメソッド
-	public void updateTask(TaskBean tBean)throws SQLException {
+	public int updateTask(TaskBean tBean)throws SQLException {
 		PreparedStatement pstatement = null;
-		
+		int numRow=0;
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
 			String sql = "UPDATE tasks SET task_title = ?,task_deadline = ?,task_priority = ?,task_content = ?,task_check = ? WHERE task_id = ?;";
@@ -77,18 +84,24 @@ public class TaskDao {
 			pstatement.setInt(6, tBean.getTask_id());
 			
 			//UPDATEを実行
-			pstatement.executeUpdate();
+			numRow = pstatement.executeUpdate();
 			
 		}finally {
+			if(numRow >0) {
+				connection.commit();
+			}else {
+				connection.rollback();
+			}
 			//PreparedStatementオブジェクトの解放
 			pstatement.close();
 		}	
+		return numRow;
 	}
 	
 	//受け取ったタスクIDをもとにデータベースからタスクを削除するメソッド
-	public void deleteTask(String task_id)throws SQLException {
+	public int deleteTask(String task_id)throws SQLException {
 		PreparedStatement pstatement = null;
-		
+		int numRow = 0;
 		try {
 			//SQLを保持するPreparedStatementオブジェクトの生成
 			String sql = "DELETE FROM tasks WHERE task_id = ?;";
@@ -97,12 +110,18 @@ public class TaskDao {
 			pstatement.setInt(1, Integer.parseInt(task_id));
 			
 			//DELETEを実行
-			pstatement.executeUpdate();
+			numRow = pstatement.executeUpdate();
 			
 		}finally {
+			if(numRow >0) {
+				connection.commit();
+			}else {
+				connection.rollback();
+			}
 			//PreparedStatementオブジェクトの解放
 			pstatement.close();
 		}
+		return numRow;
 	}
 	
 	//受け取ったtask_idをもとにタスクデータを取得するメソッド
