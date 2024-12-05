@@ -23,7 +23,7 @@ public class SearchTask {
 	        String formattedDate = formatter.format(date);
 	        request.setAttribute("taskdate", formattedDate);
 	        request.setAttribute("title", bean.getTitle());
-	        request.setAttribute("cotent", bean.getContent());
+	        request.setAttribute("content", bean.getContent());
 	        request.setAttribute("check", bean.isCheck());
 			//request.setAttribute("taskdata", bean);
 			jsp = "/TaskEdit.jsp";

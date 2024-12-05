@@ -111,9 +111,9 @@ public class TaskHome extends HttpServlet {
 				}else if(btn.equals("yes")){
 					DeleteTask delete = new DeleteTask();
 					delete.execute(request);
-					jsp = "taskhome.jsp";
+					jsp = "/taskhome.jsp";
 				}else if(btn.equals("no")){
-					jsp = "taskhome.jsp";
+					jsp = "/taskhome.jsp";
 				}
 				else{
 					jsp = "/taskhome.jsp";
