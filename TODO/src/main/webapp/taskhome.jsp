@@ -35,6 +35,9 @@
 <p><input type="submit" value="優先度順"></p>
 <%} %>
 </form>
+<form action="achieve" method="get">
+<input type="submit" value="達成済み">
+</form>
 <table border="1">
 <tr>
 <th>締切日</th>
@@ -69,6 +72,7 @@
 <input type="hidden" name="btn" value="regist">
 <p><input type="submit" value="新規登録"></p>
 </form>
+${requestScope.title }
 </main>
 </body>
 </html>

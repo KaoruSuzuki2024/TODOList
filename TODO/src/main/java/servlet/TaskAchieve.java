@@ -1,8 +1,7 @@
 package servlet;
 
+
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.UsersBean;
+import service.CreatAchievedDead;
+import service.CreatAchievedPriority;
 
 /**
  * Servlet implementation class TaskAchive
@@ -58,13 +59,7 @@ public class TaskAchieve extends HttpServlet {
 		String jsp;
 		try {
 			if(btn != null && !btn.isEmpty()) {
-				if(btn.equals("regist")) {
-					Date date = new Date(); // ここでDate型の変数を取得
-		        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		        	String formattedDate = formatter.format(date);
-		        	request.setAttribute("date", formattedDate);
-		        	jsp = "/TaskEdit.jsp";
-				}else if(btn.equals("sort")) {
+				if(btn.equals("sort")) {
 					String nowsort = request.getParameter("nowsort");
 					if(nowsort.equals("dead")) {
 						CreatAchievedPriority creatlist = new CreatAchievedPriority();
@@ -77,15 +72,21 @@ public class TaskAchieve extends HttpServlet {
 					}
 					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("delete")) {
-					String taskid = request.getParameter("taskid");
+					String[] tasksid = request.getParameterValues("tasksid");
 					request.setAttribute("message","削除してもよいですか");
-					request.setAttribute("deleteid", taskid);
+					request.setAttribute("task_id", tasksid);
+					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
+				}else if(btn.equals("yes")) {//check.jspから戻ってきたときの処理（deleteの処理）
+					String[] tasksid = request.getParameterValues("tasksid");
+					
+					
+					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("unachieve")) {
 					
-		        	jsp = "/TaskEdit.jsp";
+		        	jsp = "/taskachieve.jsp";
 				}else {
-					jsp = "taskachieve.jsp";
+					jsp = "/taskhome.jsp";
 				}
 			}else {
 				request.setAttribute("message", "ボタンが押されませんでした");
