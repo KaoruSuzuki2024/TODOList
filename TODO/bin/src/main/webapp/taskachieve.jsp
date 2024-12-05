@@ -28,7 +28,7 @@
 			<%	} //if%>
 		</form>
 
-		<form action = "home" method = "get">
+		<form action = "achieve" method = "post">
 			<input type = "hidden" name = "btn" value = "home">
 			<input type = "submit" value = "ホーム">
 		</form>
