@@ -24,7 +24,6 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
 		// JSP への転送
 		ServletContext context = getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher("/login.jsp");
@@ -36,21 +35,21 @@ public class Login extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String message = "";
-		String jsp;
+		String jsp = "/login.jsp";
 
-		//ログイン判定を行う
 		UserLogin ul = new UserLogin();
 		try {
-			jsp = ul.execute(request);	
-			System.out.println("");
+			jsp = ul.execute(request);
 		}catch(Exception ex) {
 			//例外処理
-			System.out.println("例外エラーLogin");
-			jsp = "/login.jsp";
+			System.out.println("例外エラーLogin.java");
 		}
-		ServletContext context = getServletContext();
-		RequestDispatcher rd = context.getRequestDispatcher(jsp);
-		rd.forward(request, response);
+		if(jsp.equals("/taskhome.jsp")) {
+			response.sendRedirect("http://localhost:8080/TODO/home");	//リダイレクトでdoGetを呼び出す
+		}else {
+			ServletContext context = getServletContext();
+			RequestDispatcher rd = context.getRequestDispatcher(jsp);
+			rd.forward(request, response);			
+		}
 	}
 }
