@@ -167,7 +167,6 @@ public class TaskDao {
 	//達成済みがTRUEのタスクを締め切りが近い順に取得するメソッド
 	public ArrayList<TaskBean> searchAchiveDead(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
-		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
 		ResultSet rs = null;
 		
@@ -207,7 +206,6 @@ public class TaskDao {
 	//達成済みがTRUEのタスクを優先度が高い順に取得するメソッド
 	public ArrayList<TaskBean> searchAchivePriority(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
-		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
 		ResultSet rs = null;
 		
@@ -246,7 +244,6 @@ public class TaskDao {
 	//達成済みがFALSEのタスクを締め切りが近い順に取得するメソッド
 	public ArrayList<TaskBean> searchUnachiveDead(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
-		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
 		ResultSet rs = null;
 		
@@ -285,7 +282,6 @@ public class TaskDao {
 	//達成済みがFALSEのタスクを優先度が高い順に取得するメソッド
 	public ArrayList<TaskBean> searchUnachivePriority(String user_id) throws SQLException{
 		ArrayList<TaskBean> arrayTb = new ArrayList<>();
-		TaskBean tb =new TaskBean();
 		PreparedStatement pstatement = null;
 		ResultSet rs = null;
 		
