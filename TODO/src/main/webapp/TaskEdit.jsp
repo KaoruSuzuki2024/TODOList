@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <style>
 ul li {
@@ -67,17 +70,17 @@ form {
 		<ul>
 			<li class="task_deadline"><label for="task_dealine">*締切日:</label>
 				<input type="date" name="task_deadline"  min="2024-1-1"
-				max="2035-12-31" value ="${requestScorpe.taskdate}"></li>
+				max="2035-12-31" value ="${requestScope.deadline}"></li>
 
 
 			<li class="task_title"><label for="task_title">*タイトル:</label> <input
-				type="text" name="task_title"></li>
+				type="text" name="task_title" value="${requestScope.title}"></li>
 			<div class="size_test">上限15文字</div>
 
 
 
 			<li class="task_content"><label for="task_content">*タスク内容:</label>
-				<textarea name="task_content" rows="5" cols="40" maxlength="100" value="${requestScorpe.taskdata.title}"></textarea>
+				<textarea name="task_content" rows="5" cols="40" maxlength="100">${requestScope.cotent }</textarea>
 			</li>
 			<div class="size_test">上限100文字</div>
 
@@ -92,7 +95,7 @@ form {
 
 
 			<li class="task_check"><label for="task_check">達成済み:</label> <input
-				type="checkbox" name="task_check"></li>
+				type="checkbox" name="task_check" value="${requestScope.check}" ></li>
 		</ul>
 	</form>
 
