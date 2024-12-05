@@ -9,7 +9,7 @@ import bean.TaskBean;
 import dao.TaskDao;
 
 public class CreatAchievedDead {
-	public void execute(HttpServletRequest request,String user_id) throws Exception{
+	public void execute(HttpServletRequest request,String user_id)throws Exception{
 		//リストを作成しrequestに入れる
 		ArrayList<TaskBean> list = new ArrayList<TaskBean>();
 		TaskDao dao = null;
