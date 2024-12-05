@@ -1,10 +1,7 @@
 package daotest;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import bean.TaskBean;
 import dao.TaskDao;
@@ -35,13 +32,13 @@ public class TaskDaoTest {
 				list = dao.searchAchiveDead(id);
 				if(!list.isEmpty()) {
 					for(TaskBean be : list) {
-						System.out.println("task_id：" + bean.getTask_id());
-						System.out.println("user_id：" + bean.getUser_id());
-						System.out.println("task_title：" + bean.getTitle());
-						System.out.println("task_deadline：" + bean.getDeadline());
-						System.out.println("task_priority：" + bean.getPriority());
-						System.out.println("task_content：" + bean.getContent());
-						System.out.println("task_check：" + bean.isCheck());
+						System.out.println("task_id：" + be.getTask_id());
+						System.out.println("user_id：" + be.getUser_id());
+						System.out.println("task_title：" + be.getTitle());
+						System.out.println("task_deadline：" + be.getDeadline());
+						System.out.println("task_priority：" + be.getPriority());
+						System.out.println("task_content：" + be.getContent());
+						System.out.println("task_check：" + be.isCheck());
 						System.out.println("------------------------------------------");
 					}
 				}else if(list.size() <= 0) {
@@ -54,13 +51,13 @@ public class TaskDaoTest {
 				list = dao.searchAchivePriority(id);
 				if(!list.isEmpty()) {
 					for(TaskBean be : list) {
-						System.out.println("task_id：" + bean.getTask_id());
-						System.out.println("user_id：" + bean.getUser_id());
-						System.out.println("task_title：" + bean.getTitle());
-						System.out.println("task_deadline：" + bean.getDeadline());
-						System.out.println("task_priority：" + bean.getPriority());
-						System.out.println("task_content：" + bean.getContent());
-						System.out.println("task_check：" + bean.isCheck());
+						System.out.println("task_id：" + be.getTask_id());
+						System.out.println("user_id：" + be.getUser_id());
+						System.out.println("task_title：" + be.getTitle());
+						System.out.println("task_deadline：" + be.getDeadline());
+						System.out.println("task_priority：" + be.getPriority());
+						System.out.println("task_content：" + be.getContent());
+						System.out.println("task_check：" + be.isCheck());
 						System.out.println("------------------------------------------");
 					}
 				}else if(list.size() <= 0) {
@@ -73,15 +70,14 @@ public class TaskDaoTest {
 				list = dao.searchUnachiveDead(id);
 				if(!list.isEmpty()) {
 					for(TaskBean be : list) {
-						System.out.println("task_id：" + bean.getTask_id());
-						System.out.println("user_id：" + bean.getUser_id());
-						System.out.println("task_title：" + bean.getTitle());
-						System.out.println("task_deadline：" + bean.getDeadline());
-						System.out.println("task_priority：" + bean.getPriority());
-						System.out.println("task_content：" + bean.getContent());
-						System.out.println("task_check：" + bean.isCheck());
-						System.out.println("------------------------------------------");
-					}
+						System.out.println("task_id：" + be.getTask_id());
+						System.out.println("user_id：" + be.getUser_id());
+						System.out.println("task_title：" + be.getTitle());
+						System.out.println("task_deadline：" + be.getDeadline());
+						System.out.println("task_priority：" + be.getPriority());
+						System.out.println("task_content：" + be.getContent());
+						System.out.println("task_check：" + be.isCheck());
+						System.out.println("------------------------------------------");					}
 				}else if(list.size() <= 0) {
 					System.out.println("タスクがありません");
 				}
@@ -92,13 +88,13 @@ public class TaskDaoTest {
 				list = dao.searchUnachivePriority(id);
 				if(!list.isEmpty()) {
 					for(TaskBean be : list) {
-						System.out.println("task_id：" + bean.getTask_id());
-						System.out.println("user_id：" + bean.getUser_id());
-						System.out.println("task_title：" + bean.getTitle());
-						System.out.println("task_deadline：" + bean.getDeadline());
-						System.out.println("task_priority：" + bean.getPriority());
-						System.out.println("task_content：" + bean.getContent());
-						System.out.println("task_check：" + bean.isCheck());
+						System.out.println("task_id：" + be.getTask_id());
+						System.out.println("user_id：" + be.getUser_id());
+						System.out.println("task_title：" + be.getTitle());
+						System.out.println("task_deadline：" + be.getDeadline());
+						System.out.println("task_priority：" + be.getPriority());
+						System.out.println("task_content：" + be.getContent());
+						System.out.println("task_check：" + be.isCheck());
 						System.out.println("------------------------------------------");
 					}
 				}else if(list.size() <= 0) {
@@ -118,18 +114,9 @@ public class TaskDaoTest {
 					System.out.println("更新に失敗");
 				}
 			}else if(flg == 6) {//新規追加
-				bean = new TaskBean();
+				bean = dao.searchTask(id);
 				bean.setUser_id(1);
 				bean.setTitle("自己学習");
-				String dateString = "2024-1-5";
-		        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		        Date date = null;
-		        try {
-		            date = formatter.parse(dateString);
-		        } catch (ParseException e) {
-		            e.printStackTrace();
-		        }
-				bean.setDeadline(date);
 				bean.setPriority(1);
 				bean.setContent("スキルアップのための勉強");
 				bean.setCheck(false);
@@ -150,6 +137,7 @@ public class TaskDaoTest {
 		}catch(SQLException e) {
 			System.out.println("JDBCエラーです");
 			e.getMessage();
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			System.out.println("クラスの読み込みに失敗しました");
 		}finally {
