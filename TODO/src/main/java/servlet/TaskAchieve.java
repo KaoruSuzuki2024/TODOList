@@ -72,10 +72,16 @@ public class TaskAchieve extends HttpServlet {
 					}
 					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("delete")) {
-					String taskid = request.getParameter("taskid");
+					String[] tasksid = request.getParameterValues("tasksid");
 					request.setAttribute("message","削除してもよいですか");
-					request.setAttribute("deleteid", taskid);
+					request.setAttribute("task_id", tasksid);
+					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
+				}else if(btn.equals("yes")) {//check.jspから戻ってきたときの処理（deleteの処理）
+					String[] tasksid = request.getParameterValues("tasksid");
+					
+					
+					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("unachieve")) {
 					
 		        	jsp = "/taskachieve.jsp";
