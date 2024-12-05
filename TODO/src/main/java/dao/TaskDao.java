@@ -41,6 +41,7 @@ public class TaskDao {
 		int numRow = 0;
 		
 		try {
+			connection.setAutoCommit(false);
 			//SQLを保持するPreparedStatementオブジェクトの生成
 			String sql = "INSERT INTO tasks(user_id,task_title,task_deadline,task_priority,task_content,task_check) values(?,?,?,?,?,?);";
 			pstatement = connection.prepareStatement(sql);
@@ -72,6 +73,7 @@ public class TaskDao {
 		PreparedStatement pstatement = null;
 		int numRow=0;
 		try {
+			connection.setAutoCommit(false);
 			//SQLを保持するPreparedStatementオブジェクトの生成
 			String sql = "UPDATE tasks SET task_title = ?,task_deadline = ?,task_priority = ?,task_content = ?,task_check = ? WHERE task_id = ?;";
 			pstatement = connection.prepareStatement(sql);
@@ -103,6 +105,8 @@ public class TaskDao {
 		PreparedStatement pstatement = null;
 		int numRow = 0;
 		try {
+			connection.setAutoCommit(false);
+			
 			//SQLを保持するPreparedStatementオブジェクトの生成
 			String sql = "DELETE FROM tasks WHERE task_id = ?;";
 			pstatement = connection.prepareStatement(sql);
@@ -131,6 +135,7 @@ public class TaskDao {
 		ResultSet rs = null;
 		
 		try {
+			
 			//SQLを保持するPreparedStatementオブジェクトの生成
 			String sql = "SELECT * FROM tasks WHERE task_id = ?;";
 			pstatement = connection.prepareStatement(sql);
@@ -178,15 +183,16 @@ public class TaskDao {
 			rs = pstatement.executeQuery();
 			
 			while(rs.next()) {
+				TaskBean be = new TaskBean();
 				//列名を指定してResultSetオブジェクトから値を取得
-				tb.setUser_id(rs.getInt("user_id"));
-				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("task_title"));
-				tb.setDeadline(rs.getDate("task_deadline"));
-				tb.setPriority(rs.getInt("task_priority"));
-				tb.setContent(rs.getString("task_content"));
-				tb.setCheck(rs.getBoolean("task_check"));
-				arrayTb.add(tb);
+				be.setUser_id(rs.getInt("user_id"));
+				be.setTask_id(rs.getInt("task_id"));
+				be.setTitle(rs.getString("task_title"));
+				be.setDeadline(rs.getDate("task_deadline"));
+				be.setPriority(rs.getInt("task_priority"));
+				be.setContent(rs.getString("task_content"));
+				be.setCheck(rs.getBoolean("task_check"));
+				arrayTb.add(be);
 			}
 			
 			//ResultSetオブジェクトの解放
@@ -217,15 +223,16 @@ public class TaskDao {
 			rs = pstatement.executeQuery();
 			
 			while(rs.next()) {
+				TaskBean be = new TaskBean();
 				//列名を指定してResultSetオブジェクトから値を取得
-				tb.setUser_id(rs.getInt("user_id"));
-				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("task_title"));
-				tb.setDeadline(rs.getDate("task_deadline"));
-				tb.setPriority(rs.getInt("task_priority"));
-				tb.setContent(rs.getString("task_content"));
-				tb.setCheck(rs.getBoolean("task_check"));
-				arrayTb.add(tb);
+				be.setUser_id(rs.getInt("user_id"));
+				be.setTask_id(rs.getInt("task_id"));
+				be.setTitle(rs.getString("task_title"));
+				be.setDeadline(rs.getDate("task_deadline"));
+				be.setPriority(rs.getInt("task_priority"));
+				be.setContent(rs.getString("task_content"));
+				be.setCheck(rs.getBoolean("task_check"));
+				arrayTb.add(be);
 			}
 			//ResultSetオブジェクトの解放
 			rs.close();
@@ -255,15 +262,16 @@ public class TaskDao {
 			rs = pstatement.executeQuery();
 			
 			while(rs.next()) {
+				TaskBean be = new TaskBean();
 				//列名を指定してResultSetオブジェクトから値を取得
-				tb.setUser_id(rs.getInt("user_id"));
-				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("task_title"));
-				tb.setDeadline(rs.getDate("task_deadline"));
-				tb.setPriority(rs.getInt("task_priority"));
-				tb.setContent(rs.getString("task_content"));
-				tb.setCheck(rs.getBoolean("task_check"));
-				arrayTb.add(tb);
+				be.setUser_id(rs.getInt("user_id"));
+				be.setTask_id(rs.getInt("task_id"));
+				be.setTitle(rs.getString("task_title"));
+				be.setDeadline(rs.getDate("task_deadline"));
+				be.setPriority(rs.getInt("task_priority"));
+				be.setContent(rs.getString("task_content"));
+				be.setCheck(rs.getBoolean("task_check"));
+				arrayTb.add(be);
 			}
 			//ResultSetオブジェクトの解放
 			rs.close();
@@ -293,15 +301,16 @@ public class TaskDao {
 			rs = pstatement.executeQuery();
 			
 			while(rs.next()) {
+				TaskBean be = new TaskBean();
 				//列名を指定してResultSetオブジェクトから値を取得
-				tb.setUser_id(rs.getInt("user_id"));
-				tb.setTask_id(rs.getInt("task_id"));
-				tb.setTitle(rs.getString("task_title"));
-				tb.setDeadline(rs.getDate("task_deadline"));
-				tb.setPriority(rs.getInt("task_priority"));
-				tb.setContent(rs.getString("task_content"));
-				tb.setCheck(rs.getBoolean("task_check"));
-				arrayTb.add(tb);
+				be.setUser_id(rs.getInt("user_id"));
+				be.setTask_id(rs.getInt("task_id"));
+				be.setTitle(rs.getString("task_title"));
+				be.setDeadline(rs.getDate("task_deadline"));
+				be.setPriority(rs.getInt("task_priority"));
+				be.setContent(rs.getString("task_content"));
+				be.setCheck(rs.getBoolean("task_check"));
+				arrayTb.add(be);
 			}
 			//ResultSetオブジェクトの解放
 			rs.close();

@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String message;
+		String message = "";
 		String jsp;
 		HttpSession session = request.getSession(true);
 
@@ -50,6 +50,7 @@ public class Login extends HttpServlet {
 			rd.forward(request, response);
 		}catch(Exception ex) {
 			//例外処理
+			System.out.println("例外エラーLogin");
 		}
 	}
 }
