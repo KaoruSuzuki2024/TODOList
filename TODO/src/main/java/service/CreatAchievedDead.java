@@ -21,6 +21,6 @@ public class CreatAchievedDead {
 			bean.setPriority(1);
 			list.add(bean);
 		}
-		request.setAttribute("tasks", list);
+		request.setAttribute("achievedtasks", list);
 	}
 }

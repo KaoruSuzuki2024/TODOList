@@ -78,9 +78,9 @@ public class TaskAchieve extends HttpServlet {
 					jsp = "/check.jsp";
 				}else if(btn.equals("unachieve")) {
 					
-		        	jsp = "/TaskEdit.jsp";
+		        	jsp = "/taskachieve.jsp";
 				}else {
-					jsp = "taskachieve.jsp";
+					jsp = "/taskhome.jsp";
 				}
 			}else {
 				request.setAttribute("message", "ボタンが押されませんでした");
