@@ -1,26 +1,32 @@
 package service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
 import bean.TaskBean;
+import dao.TaskDao;
 
 public class CreatAchievedDead {
-	public void execute(HttpServletRequest request) throws Exception{
+	public void execute(HttpServletRequest request,String user_id) throws Exception{
 		//リストを作成しrequestに入れる
 		ArrayList<TaskBean> list = new ArrayList<TaskBean>();
-		
-		//
-		for(int i = 0;i < 5;++i) {
-			TaskBean bean = new TaskBean();
-			Date date = new Date(2024/2/5);
-			bean.setDeadline(date);
-			bean.setTitle("自己学習");
-			bean.setPriority(1);
-			list.add(bean);
+		TaskDao dao = null;
+		try {
+			dao = new TaskDao();
+			list = dao.searchAchiveDead(user_id);
+			request.setAttribute("tasks", list);
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}finally {
+			if(dao != null) {
+				dao.close();
+			}
 		}
-		request.setAttribute("achievedtasks", list);
-	}
+	}			
 }
