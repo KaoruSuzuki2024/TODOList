@@ -109,10 +109,42 @@ public class TaskHome extends HttpServlet {
 					search.execute(request);
 		        	jsp = "/TaskEdit.jsp";
 				}else if(btn.equals("yes")){
+					String del = request.getParameter("task_id");
+					String log = request.getParameter("logout");
+					if(del != null && del.isEmpty()) {
 					DeleteTask delete = new DeleteTask();
 					delete.execute(request);
+					CreatUnachievedDead search = new CreatUnachievedDead();
+					try {
+						search.execute(request,Integer.toString(user.getId()));
+						jsp = "/taskhome.jsp";
+						request.setAttribute("sort", "dead");
+					} catch (Exception e) {
+						// TODO 自動生成された catch ブロック
+						System.out.println("リストの作成に失敗しました。");
+						e.printStackTrace();
+						jsp = "/error.jsp";
+					}
 					jsp = "/taskhome.jsp";
+					}else if(log != null && !log.isEmpty()) {
+						session.invalidate();
+						jsp = "/login.jsp";
+					}
+					else {
+						jsp = "/error.jsp";
+					}
 				}else if(btn.equals("no")){
+					CreatUnachievedDead search = new CreatUnachievedDead();
+					try {
+						search.execute(request,Integer.toString(user.getId()));
+						jsp = "/taskhome.jsp";
+						request.setAttribute("sort", "dead");
+					} catch (Exception e) {
+						// TODO 自動生成された catch ブロック
+						System.out.println("リストの作成に失敗しました。");
+						e.printStackTrace();
+						jsp = "/error.jsp";
+					}
 					jsp = "/taskhome.jsp";
 				}
 				else{
