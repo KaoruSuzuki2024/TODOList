@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header>
-		<h1>${sessionScope.userbean.name }様、達成済みタスク一覧</h1>
+		<h1>${sessionScope.user.name }様、達成済みタスク一覧</h1>
 	</header>
 	<main>
 		<form action = "achieve" method = "post">

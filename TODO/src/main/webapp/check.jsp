@@ -17,6 +17,14 @@
 <c:if test="${not empty requestScope.logout }">
 <input type="hidden" name="logout" value="${requestScope.logout }">
 </c:if>
+<c:if test="${not empty requestScope.tasksid }">
+<% int count = 0; %>
+<c:forEach var="id" items="${requestScope.tasksid }">
+<%count++; %>
+<input type="hidden" name="task<%=count %>" value="${id }">
+</c:forEach>
+<input type="hidden" name="count" value="<%=count %>">
+</c:if>
 <input type="hidden" name="btn" value="yes">
 <input type="submit" value="はい">
 </form>
