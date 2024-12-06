@@ -61,6 +61,10 @@
 <td>
 <form action="home" method="post">
 <input type="hidden" name="taskid" value="${task.task_id }">
+<c:if test="${not empty requestScope.taskid }">
+<input type="hidden" name="btn" value="update">
+</c:if>
+
 <input type="hidden" name="btn" value="update">
 <input type="submit" value="編集">
 </form>
@@ -72,7 +76,6 @@
 <input type="hidden" name="btn" value="regist">
 <p><input type="submit" value="新規登録"></p>
 </form>
-${requestScope.title }
 </main>
 </body>
 </html>
