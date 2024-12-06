@@ -69,8 +69,8 @@ form {
 	<form action="TaskEdit" method ="post">
 		<ul>
 			<li class="task_deadline"><label for="task_dealine">*締切日:</label>
-				<input type="date" name="task_deadline"  min="2024-1-1"
-				max="2035-12-31"  valu=${date }></li>
+				<input type="date" name="task_deadline"  min="2000-1-1"
+				max="2035-12-31"  id ="task_deadline" value="2020-1-5"></li>
 
 
 			<li class="task_title"><label for="task_title">*タイトル:</label> <input
@@ -85,26 +85,31 @@ form {
 			<div class="size_test">上限100文字</div>
 
 			<li class="task_priority"><label for="task_priority">*優先度:</label>
-				<select name="task_priority">
-					<option value="one">1</option>
-					<option value="two">2</option>
-					<option value="three">3</option>
-					<option value="four">4</option>
-					<option value="five">5</option>
+				<select name="task_priority" >
+					<option value="1" selected="selected">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
 			</select></li>
 
 
 			<li class="task_check"><label for="task_check">達成済み:</label> <input
-				type="checkbox" name="task_check" value="${requestScope.check}" ></li>
+				type="checkbox" name="task_check" value="true" ></li>
 		</ul>
 	
 
 	<div class="button-container">
-	<form action="TaskEdit" method ="post">
+	<c:if test="${not empty requestScope.taskid }">
+	<%String id = request.getParameter("taskid"); %>
+	<input type="hidden" name="btn" value="編集">
+<input type="hidden" name="task_id" value="<%=id%>">
+</c:if>
+	<c:if test="${ empty requestScope.taskid }">
+	<input type="hidden" name="btn" value="新規">
+</c:if>
 		<input type="submit" value="登録"><input type="hidden" name="button" value="登録"> </form>
-			<form action="TaskEdit" method ="post"><input type="hidden" name="button" value="クリア"> <input type="submit"
-			value="クリア"> </form>
-			<form action="home" method="get"><input type="submit" value="戻る"></form>
+						<form action="home" method="get"><input type="submit" value="戻る"></form>
 			
 	</div>
 
