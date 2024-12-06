@@ -117,6 +117,7 @@ public class TaskHome extends HttpServlet {
 							jsp = "/taskhome.jsp";
 						} catch (Exception e) {
 							System.out.println("リストの作成に失敗しました。");
+							request.setAttribute("returnjsp", "home");
 							request.setAttribute("errormessage", "エラーが発生しました。もう一度お願いします。");
 							e.printStackTrace();
 							jsp = "/error.jsp";
