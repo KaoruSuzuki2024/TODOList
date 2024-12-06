@@ -59,21 +59,10 @@ public class TaskEdit extends HttpServlet {
 		String task_deadline=request.getParameter("task_deadline");
 		
 		String button = request.getParameter("button");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date=null;
-		try {
-			date=formatter.parse(task_deadline);
-		}
-		catch (ParseException e) {
-			request.setAttribute("errormessage", "間違った型が入力されています");
-			jsp = "/error.jsp";
-			
-		}
-		
-		System.out.println(date);
+
 		String title = request.getParameter("task_title");
 		String content = request.getParameter("task_content");
-
+		String btn = request.getParameter("btn");
 		String message = null;
 
 		try {
@@ -86,7 +75,17 @@ public class TaskEdit extends HttpServlet {
 				if (task_deadline != null && title != null && content != null&& !title.isEmpty()
 						&& !content.isEmpty()) {
 					if (title.length() < 15 && content.length() < 100) {
-						String btn = request.getParameter("btn");
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+						Date date=null;
+						try {
+							date=formatter.parse(task_deadline);
+						}
+						catch (ParseException e) {
+							request.setAttribute("errormessage", "間違った型が入力されています");
+							jsp = "/error.jsp";
+							
+						}
+						
 						HttpSession se=request.getSession(false);
 						if(btn.equals("編集")) {
 						UsersBean user=(UsersBean)se.getAttribute("user");
@@ -139,23 +138,37 @@ public class TaskEdit extends HttpServlet {
 						jsp = "/taskhome.jsp";
 						
 						}
-					} else
+					} else						
 
 					{
-						request.setAttribute("errormessage", "文字数が超過しています");
+						request.setAttribute("errormessage", "必須項目が入力されていません");
 						jsp = "/error.jsp";
+						
+						request.setAttribute("returnjsp", "TaskEdit");
+						
 					}
 
-				} else {
+				}
+				else {
 					request.setAttribute("errormessage", "必須項目が入力されていません");
 					jsp = "/error.jsp";
+					request.setAttribute("returnjsp", "TaskEdit");
 				}
 			
+			}else if (!btn.equals("error")) {
+				jsp="/TaskEdit.jsp";
+				
+			}else
+			{
+				request.setAttribute("errormessage", "必須項目が入力されていません");
+				jsp="/TaskEdit.jsp";
+				request.setAttribute("returnjsp", "TaskEdit");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", "エラーが発生しました");
 			jsp = "/error.jsp";
+			request.setAttribute("returnjsp", "TaskEdit");
 		}
 		// JSP への転送
 		
