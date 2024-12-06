@@ -18,10 +18,10 @@ public class SearchTask {
 		try {
 			dao = new TaskDao();
 			bean = dao.searchTask(taskid);
-			Date date = bean.getDeadline(); // ここでDate型の変数を取得
-	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-	        String formattedDate = formatter.format(date);
-	        request.setAttribute("taskdate", formattedDate);
+	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date = bean.getDeadline();
+	        String datestr = formatter.format(date);
+	        request.setAttribute("taskdate", datestr);
 	        request.setAttribute("title", bean.getTitle());
 	        request.setAttribute("content", bean.getContent());
 	        request.setAttribute("check", bean.isCheck());
