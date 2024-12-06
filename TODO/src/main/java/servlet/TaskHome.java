@@ -35,18 +35,16 @@ public class TaskHome extends HttpServlet {
 		UsersBean user = (UsersBean) session.getAttribute("user");
 		String jsp;
 		//ログイン画面と接続するまで
-		user = new UsersBean();
-		user.setId(1);
+		//user = new UsersBean();
+		//user.setId(1);
 		//ログインされてなければログインページに飛ぶ
 		if(user == null) {
 			jsp = "/login.jsp";
 		}else {
 			//タスク一覧を作成
-			CreatUnachievedDead search = new CreatUnachievedDead();
 			try {
-				search.execute(request,Integer.toString(user.getId()));
+				creatList(request, user);
 				jsp = "/taskhome.jsp";
-				request.setAttribute("sort", "dead");
 			} catch (Exception e) {
 				// TODO 自動生成された catch ブロック
 				System.out.println("リストの作成に失敗しました。");
@@ -112,20 +110,16 @@ public class TaskHome extends HttpServlet {
 					String del = request.getParameter("task_id");
 					String log = request.getParameter("logout");
 					if(del != null && del.isEmpty()) {
-					DeleteTask delete = new DeleteTask();
-					delete.execute(request);
-					CreatUnachievedDead search = new CreatUnachievedDead();
-					try {
-						search.execute(request,Integer.toString(user.getId()));
-						jsp = "/taskhome.jsp";
-						request.setAttribute("sort", "dead");
-					} catch (Exception e) {
-						// TODO 自動生成された catch ブロック
-						System.out.println("リストの作成に失敗しました。");
-						e.printStackTrace();
-						jsp = "/error.jsp";
-					}
-					jsp = "/taskhome.jsp";
+						DeleteTask delete = new DeleteTask();
+						delete.execute(request);
+						try {
+							creatList(request, user);
+							jsp = "/taskhome.jsp";
+						} catch (Exception e) {
+							System.out.println("リストの作成に失敗しました。");
+							e.printStackTrace();
+							jsp = "/error.jsp";
+						}
 					}else if(log != null && !log.isEmpty()) {
 						session.invalidate();
 						jsp = "/login.jsp";
@@ -134,11 +128,9 @@ public class TaskHome extends HttpServlet {
 						jsp = "/error.jsp";
 					}
 				}else if(btn.equals("no")){
-					CreatUnachievedDead search = new CreatUnachievedDead();
 					try {
-						search.execute(request,Integer.toString(user.getId()));
+						creatList(request,user);
 						jsp = "/taskhome.jsp";
-						request.setAttribute("sort", "dead");
 					} catch (Exception e) {
 						// TODO 自動生成された catch ブロック
 						System.out.println("リストの作成に失敗しました。");
@@ -167,4 +159,10 @@ public class TaskHome extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	
+	public void creatList(HttpServletRequest request,UsersBean user)throws Exception{
+		CreatUnachievedDead search = new CreatUnachievedDead();
+		search.execute(request,Integer.toString(user.getId()));
+		request.setAttribute("sort", "dead");
+	}
 }

@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-<h1>${sessionScope.userbean.name }様、未達成タスク一覧</h1>
+<h1>${sessionScope.user.name }様、未達成タスク一覧</h1>
 <form action="home" method="post">
 <input type="hidden" name="btn" value="logout">
 <input type="submit" value=ログアウト>
