@@ -74,7 +74,7 @@ form {
 
 
 			<li class="task_title"><label for="task_title">*タイトル:</label> <input
-				type="text" name="task_title" value="${requestScope.title}"></li>
+				type="text" name="task_title" value="${requestScope.title}" maxlength="15"></li>
 			<div class="size_test">上限15文字</div>
 
 
