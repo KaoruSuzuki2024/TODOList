@@ -29,6 +29,7 @@ public class UserLogin {
 			} else {request.setAttribute("message", "IDとPWが一致しません");}
 		} catch (NumberFormatException ex) {
 			System.out.println("IDには数値を入力してください");
+			request.setAttribute("message", "IDとPWが一致しません");
 		}catch(Exception ex) {
 			//例外処理
 			System.out.println("例外エラーIserLogin.java");
