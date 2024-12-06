@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 import bean.UsersBean;
 import service.CreatAchievedDead;
 import service.CreatAchievedPriority;
-import service.DeleteTask;
+import service.SelectAchieved;
+import service.SelectDelete;
 
 /**
  * Servlet implementation class TaskAchive
@@ -81,16 +82,12 @@ public class TaskAchieve extends HttpServlet {
 				}else if(btn.equals("delete")) {
 					String[] tasksid = request.getParameterValues("tasksid");
 					request.setAttribute("message","選択したタスクを削除してもよいですか");
-					request.setAttribute("task_id", tasksid);
+					request.setAttribute("tasksid", tasksid);
 					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
 				}else if(btn.equals("yes")) {//check.jspからyesで戻ってきたときの処理（deleteの処理）
-					String[] tasksid = request.getParameterValues("tasksid");
-					DeleteTask delete = new DeleteTask();
-					for(String s : tasksid) {
-						request.setAttribute("delete", s);
-						delete.execute(request);
-					}
+					SelectDelete delete = new SelectDelete();
+					delete.execute(request);
 					//ページを再表示
 					jsp = CreatList(request);
 				}else if(btn.equals("no")) {//check.jspからnoで戻ってきたときの処理（deleteの処理）
@@ -99,16 +96,12 @@ public class TaskAchieve extends HttpServlet {
 				}else if(btn.equals("unachieve")) {
 					String[] tasksid = request.getParameterValues("tasksid");
 					request.setAttribute("message","選択したタスクを未達成に戻してもよいですか");
-					request.setAttribute("task_id", tasksid);
+					request.setAttribute("tasksid", tasksid);
 					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
 				}else if(btn.equals("yes")) {//check.jspからyesで戻ってきたときの処理（unachieveの処理）
-					String[] tasksid = request.getParameterValues("tasksid");
-					//UpdateTask update = new UpdateTask();
-					for(String s : tasksid) {
-						request.setAttribute("update", s);
-						//update.execute(request);
-					}
+					SelectAchieved achieved = new SelectAchieved();
+					achieved.execute(request);
 					//ページを再表示
 					jsp = CreatList(request);
 				}else if(btn.equals("no")) {//check.jspからnoで戻ってきたときの処理（unachieveの処理）
