@@ -69,16 +69,16 @@ public class TaskAchieve extends HttpServlet {
 		UsersBean user = (UsersBean)session.getAttribute("user");
 		user = new UsersBean();
 		user.setId(1);
+		CreatAchievedDead search = new CreatAchievedDead();
 		try {
 			if(btn != null && !btn.isEmpty()) {
 				if(btn.equals("sort")) {
 					String nowsort = request.getParameter("nowsort");
 					if(nowsort.equals("dead")) {
 						CreatAchievedPriority creatlist = new CreatAchievedPriority();
-						creatlist.execute(request);
+						creatlist.execute(request,Integer.toString(user.getId()));
 						sort = "priority";
 					}else if(nowsort.equals("priority")) {
-						CreatAchievedDead search = new CreatAchievedDead();
 						search.execute(request,Integer.toString(user.getId()));
 						sort = "dead";
 					}
@@ -97,13 +97,31 @@ public class TaskAchieve extends HttpServlet {
 						delete.execute(request);
 					}
 					
-					jsp = "/taskachieve.jsp";
+					try {
+						search.execute(request,Integer.toString(user.getId()));
+						jsp = "/taskachieve.jsp";
+						request.setAttribute("sort", "dead");
+					} catch (Exception e) {
+						System.out.println("リストの作成に失敗しました。");
+						e.printStackTrace();
+						jsp = "/error.jsp";
+					}
 				}else if(btn.equals("no")) {//check.jspからnoで戻ってきたときの処理（deleteの処理）
-					
-					jsp = "/taskachieve.jsp";
+					try {
+						search.execute(request,Integer.toString(user.getId()));
+						jsp = "/taskachieve.jsp";
+						request.setAttribute("sort", "dead");
+					} catch (Exception e) {
+						System.out.println("リストの作成に失敗しました。");
+						e.printStackTrace();
+						jsp = "/error.jsp";
+					}
 				}else if(btn.equals("unachieve")) {
-					
-		        	jsp = "/taskachieve.jsp";
+					String[] tasksid = request.getParameterValues("tasksid");
+					request.setAttribute("message","削除してもよいですか");
+					request.setAttribute("task_id", tasksid);
+					request.setAttribute("returnjsp", "achieve");
+					jsp = "/check.jsp";
 				}else {
 					jsp = "/taskhome.jsp";
 				}
