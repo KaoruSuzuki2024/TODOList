@@ -45,8 +45,8 @@ ul li label {
 }
 
 form {
-	border: 2px solid #000; /* 枠線の太さ、スタイル、色を設定 */
-	padding: 20px; /* 枠線と内容の間に余白を設定 */
+	//border: 2px solid #000; /* 枠線の太さ、スタイル、色を設定 */
+	//padding: 20px; /* 枠線と内容の間に余白を設定 */
 }
 
 .test {
@@ -66,7 +66,7 @@ form {
 	<h1>タスク編集</h1>
 	<p>*の表示されている文字は入力必須です</p>
 
-	<form>
+	<form action="TaskEdit" method ="post">
 		<ul>
 			<li class="task_deadline"><label for="task_dealine">*締切日:</label>
 				<input type="date" name="task_deadline"  min="2024-1-1"
@@ -97,11 +97,13 @@ form {
 			<li class="task_check"><label for="task_check">達成済み:</label> <input
 				type="checkbox" name="task_check" value="${requestScope.check}" ></li>
 		</ul>
-	</form>
+	</form action="TaskEdit" method ="post">
 
 	<div class="button-container">
-		<input type="button" value="戻る"> <input type="button"
-			value="クリア"> <input type="button" value="登録">
+		<input type="submit" value="戻る"> <input type="submit"
+			value="クリア"> 
+			<form action="taskhome.jsp" method="get"><input type="submit" value="登録"></form>
+			
 	</div>
 
 </body>
