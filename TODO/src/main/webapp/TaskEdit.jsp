@@ -70,7 +70,7 @@ form {
 		<ul>
 			<li class="task_deadline"><label for="task_dealine">*締切日:</label>
 				<input type="date" name="task_deadline"  min="2024-1-1"
-				max="2035-12-31" value ="${requestScope.deadline}"></li>
+				max="2035-12-31"  valu=${date }></li>
 
 
 			<li class="task_title"><label for="task_title">*タイトル:</label> <input
@@ -97,13 +97,13 @@ form {
 			<li class="task_check"><label for="task_check">達成済み:</label> <input
 				type="checkbox" name="task_check" value="${requestScope.check}" ></li>
 		</ul>
-	</form action="TaskEdit" method ="post">
+	
 
 	<div class="button-container">
-		<input type="submit" value="登録"> 
-		<form action="TaskEdit" method ="post"><input type="submit"
-			value="クリア">
-			<input type="hidden" name="button" value="clear"></form>
+	<form action="TaskEdit" method ="post">
+		<input type="submit" value="登録"><input type="hidden" name="button" value="登録"> </form>
+			<form action="TaskEdit" method ="post"><input type="hidden" name="button" value="クリア"> <input type="submit"
+			value="クリア"> </form>
 			<form action="home" method="get"><input type="submit" value="戻る"></form>
 			
 	</div>

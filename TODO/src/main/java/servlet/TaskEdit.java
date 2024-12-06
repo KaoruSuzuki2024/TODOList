@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -49,7 +50,8 @@ public class TaskEdit extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// リクエストパラメーターの値
 		String button = request.getParameter("button");
-		String deadline = request.getParameter("task_deadline");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String deadline = formatter.format(request.getParameter("task_deadline"));
 		String title = request.getParameter("task_title");
 		String content = request.getParameter("task_content");
 		String jsp = null;
@@ -62,11 +64,12 @@ public class TaskEdit extends HttpServlet {
 		try {
 			if (button != null && !button.isEmpty()) {
 				if (button.equals("clear")) {
-					request.setAttribute(title, "");
+					request.setAttribute("title", "");
 					jsp="/TaskEdit";
 				}
+				else if (button.equals("登録")) {
 
-				if (deadline != null && title != null && content != null && !deadline.isEmpty() && !title.isEmpty()
+				if (deadline != null && title != null && content != null&& !title.isEmpty()
 						&& content.isEmpty()) {
 					if (title.length() < 15 && content.length() < 100) {
 					} else
@@ -80,6 +83,7 @@ public class TaskEdit extends HttpServlet {
 					request.setAttribute("errormessage", "必須項目が入力されていません");
 					jsp = "/error.jsp";
 				}
+			}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
