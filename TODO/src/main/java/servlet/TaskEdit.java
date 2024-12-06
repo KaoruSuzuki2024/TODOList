@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.TaskBean;
+
 /**
  * Servlet implementation class TaskEdit
  */
 @WebServlet("/TaskEdit")
 public class TaskEdit extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	public static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,21 +43,48 @@ public class TaskEdit extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
 		// リクエストパラメーターの値
-		String param = request.getParameter("paramNum");
+		String btn = request.getParameter("btn");
+		String deadline = request.getParameter("task_deadline");
+		String title = request.getParameter("task_title");
+		String content = request.getParameter("task_content");
 		String jsp = null;
 		String message = null;
-		
-		
-		
-		// JSP への転送
-		 ServletContext context = request.getServletContext();
-		 RequestDispatcher dispatcher = context.getRequestDispatcher(jsp);
-		 dispatcher.forward(request, response);
 
+		TaskBean task = (TaskBean) session.getAttribute("task");
+		task = new TaskBean();
+		task.setTask_id(1);
+
+		try {
+
+			if (deadline != null && title != null && content != null && !deadline.isEmpty() && !title.isEmpty()
+					&& content.isEmpty()) {
+				if (title.length() < 15 && content.length() < 100) {
+				} else
+
+				{
+					request.setAttribute("message", "文字数が超過しています");
+					jsp = "/error.jsp";
+				}
+
+			} else {
+				request.setAttribute("message", "必須項目が入力されていません");
+				jsp = "/error.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("message", "エラーが発生しました");
+			jsp = "/error.jsp";
+		}
+
+		// JSP への転送
+		ServletContext context = request.getServletContext();
+		RequestDispatcher dispatcher = context.getRequestDispatcher(jsp);
+		dispatcher.forward(request, response);
 
 	}
 
