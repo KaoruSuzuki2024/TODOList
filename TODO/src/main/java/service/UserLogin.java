@@ -21,20 +21,17 @@ public class UserLogin {
 				ud = new UsersDao();
 				UsersBean ub = ud.searchUser(id);
 				if (password.equals(ub.getPassword())) {
-					//ログイン処理で遷移するページのURLを格納
-					jsp = "/taskhome.jsp";
+					jsp = "/taskhome.jsp";				//ログイン処理で遷移するページのURLを格納
 					HttpSession session = request.getSession(true);
 					session.setAttribute("user",ub);
 					request.setAttribute("sort", "dead");
 				} else {request.setAttribute("message", "IDとPWが一致しません");}
-			} else {
-				request.setAttribute("message", "IDとPWが一致しません(IDかPWが未入力)");
-			}
+			} else {request.setAttribute("message", "IDとPWが一致しません");}
 		} catch (NumberFormatException ex) {
 			System.out.println("IDには数値を入力してください");
 		}catch(Exception ex) {
 			//例外処理
-			System.out.println("例外エラー");
+			System.out.println("例外エラーIserLogin.java");
 		}
 		finally {
 			if (ud != null) {

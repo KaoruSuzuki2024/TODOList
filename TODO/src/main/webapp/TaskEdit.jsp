@@ -80,7 +80,7 @@ form {
 
 
 			<li class="task_content"><label for="task_content">*タスク内容:</label>
-				<textarea name="task_content" rows="5" cols="40" maxlength="100">${requestScope.cotent }</textarea>
+				<textarea name="task_content" rows="5" cols="40" maxlength="100">${requestScope.content }</textarea>
 			</li>
 			<div class="size_test">上限100文字</div>
 
