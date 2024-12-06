@@ -32,9 +32,6 @@ public class TaskAchieve extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		UsersBean user = (UsersBean) session.getAttribute("user");
 		String jsp;
-		//ログイン画面と接続するまで
-		user = new UsersBean();
-		user.setId(1);
 		//ログインされてなければログインページに飛ぶ
 		if(user == null) {
 			jsp = "/login.jsp";
@@ -151,8 +148,6 @@ public class TaskAchieve extends HttpServlet {
 		CreatAchievedDead search = new CreatAchievedDead();
 		String jsp;
 		UsersBean user = (UsersBean)session.getAttribute("user");
-		user = new UsersBean();
-		user.setId(1);
 		try {
 			search.execute(request,Integer.toString(user.getId()));
 			jsp = "/taskachieve.jsp";
