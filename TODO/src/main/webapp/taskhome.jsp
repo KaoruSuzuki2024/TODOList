@@ -72,7 +72,9 @@
 <input type="hidden" name="btn" value="regist">
 <p><input type="submit" value="新規登録"></p>
 </form>
-${requestScope.title }
+<form action="home" method="post">
+<p><input type="submit" value="新規登録"></p>
+</form>
 </main>
 </body>
 </html>
