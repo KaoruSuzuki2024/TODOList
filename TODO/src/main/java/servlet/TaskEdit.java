@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -9,8 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.TaskBean;
+import bean.UsersBean;
+import service.InsertTask;
+import service.UpdateTask;
 
 /**
  * Servlet implementation class TaskEdit
@@ -47,45 +54,131 @@ public class TaskEdit extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
-		// リクエストパラメーターの値
-		String btn = request.getParameter("btn");
-		String deadline = request.getParameter("task_deadline");
+		// リクエストパラメーターの値;
+		String jsp = null;
+		String task_deadline=request.getParameter("task_deadline");
+		
+		String button = request.getParameter("button");
+
 		String title = request.getParameter("task_title");
 		String content = request.getParameter("task_content");
-		String jsp = null;
+		String btn = request.getParameter("btn");
 		String message = null;
 
-		TaskBean task = (TaskBean) session.getAttribute("task");
-		task = new TaskBean();
-		task.setTask_id(1);
-
 		try {
-
-			if (deadline != null && title != null && content != null && !deadline.isEmpty() && !title.isEmpty()
-					&& content.isEmpty()) {
-				if (title.length() < 15 && content.length() < 100) {
-				} else
-
-				{
-					request.setAttribute("message", "文字数が超過しています");
-					jsp = "/error.jsp";
+			if (button != null && !button.isEmpty()) {
+				if (button.equals("clear")) {
+					request.setAttribute("title", "");
+					jsp="/TaskEdit";
 				}
+				else if (button.equals("登録")) {
+				if (task_deadline != null && title != null && content != null&& !title.isEmpty()
+						&& !content.isEmpty()) {
+					if (title.length() < 15 && content.length() < 100) {
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+						Date date=null;
+						try {
+							date=formatter.parse(task_deadline);
+						}
+						catch (ParseException e) {
+							request.setAttribute("errormessage", "間違った型が入力されています");
+							jsp = "/error.jsp";
+							
+						}
+						
+						HttpSession se=request.getSession(false);
+						if(btn.equals("編集")) {
+						UsersBean user=(UsersBean)se.getAttribute("user");
+						
+						TaskBean bean =new TaskBean();
+						String id=request.getParameter("task_id");
+						System.out.println(id);
+						bean.setTask_id(Integer.parseInt(id));
+						bean.setUser_id(user.getId());
+						bean.setDeadline(date);
+						bean.setTitle(title);
+						bean.setContent(content);
+						String priority=request.getParameter("task_priority");
+						System.out.println(priority);
+						bean.setPriority(Integer.parseInt(priority));
+						String check =request.getParameter("task_check");
+						boolean taskcheck;
+						if(check!=null&&!check.isEmpty()) {
+							taskcheck=true;
+						}
+						else {
+							taskcheck=false;
+						}
+						bean.setCheck(taskcheck);
+						UpdateTask updatetask=new UpdateTask();
+						updatetask.execute(bean);
+						}else {
+							UsersBean user=(UsersBean)se.getAttribute("user");
+							
+							TaskBean bean =new TaskBean();
+							bean.setUser_id(user.getId());
+							bean.setDeadline(date);
+							bean.setTitle(title);
+							bean.setContent(content);
+							String priority=request.getParameter("task_priority");
+							System.out.println(priority);
+							bean.setPriority(Integer.parseInt(priority));
+							String check =request.getParameter("task_check");
+							boolean taskcheck;
+							if(check!=null&&!check.isEmpty()) {
+								taskcheck=true;
+							}
+							else {
+								taskcheck=false;
+							}
+							bean.setCheck(taskcheck);
+							InsertTask updatetask=new InsertTask();
+							updatetask.execute(bean);
+						}
+						jsp = "/taskhome.jsp";
+						
+						}
+					} else						
 
-			} else {
-				request.setAttribute("message", "必須項目が入力されていません");
-				jsp = "/error.jsp";
+					{
+						request.setAttribute("errormessage", "必須項目が入力されていません");
+						jsp = "/error.jsp";
+						
+						request.setAttribute("returnjsp", "TaskEdit");
+						
+					}
+
+				}
+				else {
+					request.setAttribute("errormessage", "必須項目が入力されていません");
+					jsp = "/error.jsp";
+					request.setAttribute("returnjsp", "TaskEdit");
+				}
+			
+			}else if (!btn.equals("error")) {
+				jsp="/TaskEdit.jsp";
+				
+			}else
+			{
+				request.setAttribute("errormessage", "必須項目が入力されていません");
+				jsp="/TaskEdit.jsp";
+				request.setAttribute("returnjsp", "TaskEdit");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", "エラーが発生しました");
 			jsp = "/error.jsp";
+			request.setAttribute("returnjsp", "TaskEdit");
 		}
-
 		// JSP への転送
+		
+		if(jsp.equals("/taskhome.jsp"))
+		{
+		response.sendRedirect("http://localhost:8080/TODO/home");
+		}
+		else {
 		ServletContext context = request.getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher(jsp);
-		dispatcher.forward(request, response);
-
+		dispatcher.forward(request, response);}
 	}
-
 }

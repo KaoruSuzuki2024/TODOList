@@ -18,7 +18,7 @@ public class SearchTask {
 		try {
 			dao = new TaskDao();
 			bean = dao.searchTask(taskid);
-	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 	        Date date = bean.getDeadline();
 	        String datestr = formatter.format(date);
 	        request.setAttribute("taskdate", datestr);
