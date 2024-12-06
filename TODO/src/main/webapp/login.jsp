@@ -4,14 +4,14 @@
 
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>ログイン画面</title>
 <style>
 p {
 	text-align: center;
 }
 </style>
+<head>
+<meta charset="UTF-8">
+<title>ログイン画面</title>
 </head>
 <body>
 	<header>
