@@ -39,19 +39,14 @@ public class TaskAchieve extends HttpServlet {
 			jsp = "/login.jsp";
 		}else {
 			//タスク一覧を作成
-			CreatAchievedDead search = new CreatAchievedDead();
 			try {
-				search.execute(request,Integer.toString(user.getId()));
-				jsp = "/taskachieve.jsp";
-				request.setAttribute("sort", "dead");
-			} catch (Exception e) {
-				
-				System.out.println("リストの作成に失敗しました。");
+				jsp = CreatList(request);
+			}catch (Exception e){
 				e.printStackTrace();
+				request.setAttribute("message", "エラーが発生しました");
 				jsp = "/error.jsp";
 			}
 		}
-		
 		ServletContext context = getServletContext();
 		RequestDispatcher rd = context.getRequestDispatcher(jsp);
 		rd.forward(request, response);
@@ -85,7 +80,7 @@ public class TaskAchieve extends HttpServlet {
 					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("delete")) {
 					String[] tasksid = request.getParameterValues("tasksid");
-					request.setAttribute("message","削除してもよいですか");
+					request.setAttribute("message","選択したタスクを削除してもよいですか");
 					request.setAttribute("task_id", tasksid);
 					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
@@ -96,32 +91,29 @@ public class TaskAchieve extends HttpServlet {
 						request.setAttribute("delete", s);
 						delete.execute(request);
 					}
-					
-					try {
-						search.execute(request,Integer.toString(user.getId()));
-						jsp = "/taskachieve.jsp";
-						request.setAttribute("sort", "dead");
-					} catch (Exception e) {
-						System.out.println("リストの作成に失敗しました。");
-						e.printStackTrace();
-						jsp = "/error.jsp";
-					}
+					//ページを再表示
+					jsp = CreatList(request);
 				}else if(btn.equals("no")) {//check.jspからnoで戻ってきたときの処理（deleteの処理）
-					try {
-						search.execute(request,Integer.toString(user.getId()));
-						jsp = "/taskachieve.jsp";
-						request.setAttribute("sort", "dead");
-					} catch (Exception e) {
-						System.out.println("リストの作成に失敗しました。");
-						e.printStackTrace();
-						jsp = "/error.jsp";
-					}
+					//ページを再表示
+					jsp = CreatList(request);
 				}else if(btn.equals("unachieve")) {
 					String[] tasksid = request.getParameterValues("tasksid");
-					request.setAttribute("message","削除してもよいですか");
+					request.setAttribute("message","選択したタスクを未達成に戻してもよいですか");
 					request.setAttribute("task_id", tasksid);
 					request.setAttribute("returnjsp", "achieve");
 					jsp = "/check.jsp";
+				}else if(btn.equals("yes")) {//check.jspからyesで戻ってきたときの処理（unachieveの処理）
+					String[] tasksid = request.getParameterValues("tasksid");
+					//UpdateTask update = new UpdateTask();
+					for(String s : tasksid) {
+						request.setAttribute("update", s);
+						//update.execute(request);
+					}
+					//ページを再表示
+					jsp = CreatList(request);
+				}else if(btn.equals("no")) {//check.jspからnoで戻ってきたときの処理（unachieveの処理）
+					//ページを再表示
+					jsp = CreatList(request);
 				}else {
 					jsp = "/taskhome.jsp";
 				}
@@ -141,5 +133,25 @@ public class TaskAchieve extends HttpServlet {
 		RequestDispatcher rd = context.getRequestDispatcher(jsp);
 		rd.forward(request, response);
 	}
-
+	
+	
+	//ページにタスク一覧を表示/再表示するメソッド
+	public String CreatList(HttpServletRequest request)throws Exception{
+		HttpSession session = request.getSession(false);
+		CreatAchievedDead search = new CreatAchievedDead();
+		String jsp;
+		UsersBean user = (UsersBean)session.getAttribute("user");
+		user = new UsersBean();
+		user.setId(1);
+		try {
+			search.execute(request,Integer.toString(user.getId()));
+			jsp = "/taskachieve.jsp";
+			request.setAttribute("sort", "dead");
+		} catch (Exception e) {
+			System.out.println("リストの作成に失敗しました。");
+			e.printStackTrace();
+			jsp = "/error.jsp";
+		}
+		return jsp;
+	}
 }
