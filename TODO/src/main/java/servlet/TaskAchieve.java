@@ -81,18 +81,30 @@ public class TaskAchieve extends HttpServlet {
 					jsp = "/taskachieve.jsp";
 				}else if(btn.equals("delete")) {
 					String[] tasksid = request.getParameterValues("tasksid");
-					request.setAttribute("message","選択したタスクを削除してもよいですか");
-					request.setAttribute("tasksid", tasksid);
-					request.setAttribute("returnjsp", "achieve");
-					request.setAttribute("select", "del");
-					jsp = "/check.jsp";
+					if(tasksid != null) {
+						request.setAttribute("message","本当に削除しますか");
+						request.setAttribute("tasksid", tasksid);
+						request.setAttribute("returnjsp", "achieve");
+						request.setAttribute("select", "del");
+						jsp = "/check.jsp";
+					}else {
+						request.setAttribute("errormessage","タスクを選択してください");
+						request.setAttribute("returnjsp", "achieve");
+						jsp = "/error.jsp";
+					}
 				}else if(btn.equals("unachieve")) {
 					String[] tasksid = request.getParameterValues("tasksid");
-					request.setAttribute("message","選択したタスクを未達成に戻してもよいですか");
-					request.setAttribute("tasksid", tasksid);
-					request.setAttribute("returnjsp", "achieve");
-					request.setAttribute("select", "un");
-					jsp = "/check.jsp";
+					if(tasksid != null) {
+						request.setAttribute("message","本当に変更しますか");
+						request.setAttribute("tasksid", tasksid);
+						request.setAttribute("returnjsp", "achieve");
+						request.setAttribute("select", "un");
+						jsp = "/check.jsp";
+					}else {
+						request.setAttribute("errormessage","タスクを選択してください");
+						request.setAttribute("returnjsp", "achieve");
+						jsp = "/error.jsp";
+					}
 				}else if(btn.equals("yes")) {//check.jspからyesで戻ってきたときの処理（unachieveの処理）
 					String select = request.getParameter("select");
 					if(select.equals("un")) {

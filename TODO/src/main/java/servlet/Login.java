@@ -49,7 +49,7 @@ public class Login extends HttpServlet {
 		}else {
 			ServletContext context = getServletContext();
 			RequestDispatcher rd = context.getRequestDispatcher(jsp);
-			rd.forward(request, response);			
+			rd.forward(request, response);
 		}
 	}
 }
