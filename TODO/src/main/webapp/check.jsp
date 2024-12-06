@@ -24,6 +24,7 @@
 <input type="hidden" name="task<%=count %>" value="${id }">
 </c:forEach>
 <input type="hidden" name="count" value="<%=count %>">
+<input type="hidden" name="select" value="${requestScope.select }">
 </c:if>
 <input type="hidden" name="btn" value="yes">
 <input type="submit" value="はい">
