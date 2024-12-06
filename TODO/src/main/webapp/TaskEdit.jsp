@@ -100,9 +100,11 @@ form {
 	</form action="TaskEdit" method ="post">
 
 	<div class="button-container">
-		<input type="submit" value="戻る"> <input type="submit"
-			value="クリア"> 
-			<form action="taskhome.jsp" method="get"><input type="submit" value="登録"></form>
+		<input type="submit" value="登録"> 
+		<form action="TaskEdit" method ="post"><input type="submit"
+			value="クリア">
+			<input type="hidden" name="button" value="clear"></form>
+			<form action="home" method="get"><input type="submit" value="戻る"></form>
 			
 	</div>
 
