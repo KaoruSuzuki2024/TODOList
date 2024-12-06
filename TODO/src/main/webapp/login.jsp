@@ -10,8 +10,6 @@
 <style>
 p {
 	text-align: center;
-	position: relative;
-	top: 100px;
 }
 </style>
 </head>
