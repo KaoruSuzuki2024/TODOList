@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import bean.TaskBean;
 
@@ -48,7 +49,9 @@ public class TaskDao {
 			
 			pstatement.setInt(1, tBean.getUser_id());
 			pstatement.setString(2,tBean.getTitle());
-			pstatement.setDate(3,(java.sql.Date) tBean.getDeadline());
+			Date date = tBean.getDeadline();
+			java.sql.Date da = new java.sql.Date(date.getYear(), date.getMonth(), date.getDay());
+			pstatement.setDate(3,da);
 			pstatement.setInt(4, tBean.getPriority());
 			pstatement.setString(5,tBean.getContent());
 			pstatement.setBoolean(6, tBean.isCheck());
@@ -79,7 +82,9 @@ public class TaskDao {
 			pstatement = connection.prepareStatement(sql);
 			
 			pstatement.setString(1,tBean.getTitle());
-			pstatement.setDate(2,(java.sql.Date) tBean.getDeadline());
+			Date date = tBean.getDeadline();
+			java.sql.Date da = new java.sql.Date(date.getYear(), date.getMonth(), date.getDay());
+			pstatement.setDate(2,da);
 			pstatement.setInt(3, tBean.getPriority());
 			pstatement.setString(4,tBean.getContent());
 			pstatement.setBoolean(5, tBean.isCheck());

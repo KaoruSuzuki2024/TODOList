@@ -4,13 +4,18 @@
 
 <!DOCTYPE html>
 <html lang="ja">
+<style>
+p {
+	text-align: center;
+}
+</style>
 <head>
 <meta charset="UTF-8">
 <title>ログイン画面</title>
 </head>
 <body>
 	<header>
-		<h1>TaskMaster/DL</h1>
+		<h1><p>TaskMaster/DL</p></h1>
 	</header>
 	<main>
 		<form action="login" method="post">
@@ -18,13 +23,15 @@
 			<c:if test="${not empty requestScope.message}">
 				<p class="message">${requestScope.message}</p>
 			</c:if>
+			<div class="input">
 			<p>
 				ID：<input type="text" name="id" placeholder="01234567">
 			</p>
 			<p>
-				PW：<input type="password" name="pw" placeholder="********">		<!-- cssで*表示が可能 -->
+				PW：<input type="password" name="pw" placeholder="********">	<!-- cssで*表示が可能 -->
 			</p>
-			<input type="submit" value="ログイン">
+			<p><input type="submit" value="ログイン"></p>
+			</div>
 		</form>
 
 	</main>
