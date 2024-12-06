@@ -79,7 +79,7 @@ public class TaskHome extends HttpServlet {
 					jsp = "/check.jsp";
 				}else if(btn.equals("regist")) {
 					Date date = new Date(); // ここでDate型の変数を取得
-		        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 		        	String formattedDate = formatter.format(date);
 		        	request.setAttribute("date", formattedDate);
 		        	jsp = "/TaskEdit.jsp";
@@ -117,6 +117,7 @@ public class TaskHome extends HttpServlet {
 							jsp = "/taskhome.jsp";
 						} catch (Exception e) {
 							System.out.println("リストの作成に失敗しました。");
+							request.setAttribute("errormessage", "エラーが発生しました。もう一度お願いします。");
 							e.printStackTrace();
 							jsp = "/error.jsp";
 						}
@@ -125,6 +126,8 @@ public class TaskHome extends HttpServlet {
 						jsp = "/login.jsp";
 					}
 					else {
+						request.setAttribute("returnjsp", "home");
+						request.setAttribute("errormessage", "エラーが発生しました。もう一度入力してください。");
 						jsp = "/error.jsp";
 					}
 				}else if(btn.equals("no")){
@@ -132,23 +135,38 @@ public class TaskHome extends HttpServlet {
 						creatList(request,user);
 						jsp = "/taskhome.jsp";
 					} catch (Exception e) {
-						// TODO 自動生成された catch ブロック
 						System.out.println("リストの作成に失敗しました。");
+						request.setAttribute("returnjsp", "home");
+						request.setAttribute("errormessage", "エラーが発生しました。もう一度お願いします。");
 						e.printStackTrace();
 						jsp = "/error.jsp";
 					}
-					jsp = "/taskhome.jsp";
+				}else if(btn.equals("error")) {
+					try {
+						creatList(request,user);
+						jsp = "/taskhome.jsp";
+					} catch (Exception e) {
+						System.out.println("リストの作成に失敗しました。");
+						request.setAttribute("returnjsp", "home");
+						request.setAttribute("errormessage", "エラーが発生しました。もう一度お願いします。");
+						e.printStackTrace();
+						jsp = "/error.jsp";
+					}
 				}
 				else{
-					jsp = "/taskhome.jsp";
+					request.setAttribute("errormessage", "エラーが発生しました");
+					request.setAttribute("returnjsp", "home");
+					jsp = "/error.jsp";
 				}
 			}else {
-				request.setAttribute("message", "ボタンが押されませんでした");
+				request.setAttribute("errormessage", "ボタンが押されませんでした");
+				request.setAttribute("returnjsp", "home");
 				jsp = "/error.jsp";
 			}
 		}catch (Exception e){
 			e.printStackTrace();
-			request.setAttribute("message", "エラーが発生しました");
+			request.setAttribute("returnjsp", "home");
+			request.setAttribute("errormessage", "エラーが発生しました");
 			jsp = "/error.jsp";
 		}
 		

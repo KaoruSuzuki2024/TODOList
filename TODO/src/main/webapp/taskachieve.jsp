@@ -7,10 +7,11 @@
 <head>
 	<meta charset = "UTF-8">
 	<title>達成済み画面</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/TaskAchieve.css">
 </head>
 <body>
 	<header>
-		<h1>${sessionScope.userbean.name }様、達成済みタスク一覧</h1>
+		<h1>${sessionScope.user.name }様、達成済みタスク一覧</h1>
 	</header>
 	<main>
 		<form action = "achieve" method = "post">
@@ -39,7 +40,7 @@
 			<input type = "submit" value = "実行">
 			<table border = "1">
 				<tr>
-					<th></th>
+					<th class = "check"></th>
 					<th>締切日</th>
 					<th>タイトル</th>
 					<th>優先度</th>
