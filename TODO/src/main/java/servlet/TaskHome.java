@@ -79,7 +79,7 @@ public class TaskHome extends HttpServlet {
 					jsp = "/check.jsp";
 				}else if(btn.equals("regist")) {
 					Date date = new Date(); // ここでDate型の変数を取得
-		        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 		        	String formattedDate = formatter.format(date);
 		        	request.setAttribute("date", formattedDate);
 		        	jsp = "/TaskEdit.jsp";

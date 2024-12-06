@@ -20,6 +20,8 @@
 <form action="home" method="post">
 <input type="hidden" name="btn" value="regist">
 <p><input type="submit" value="新規登録"></p>
+<input type="hidden" name="btn" value="logout">
+<input type="submit" value=ログアウト>
 </form>
 <form action="home" method="post">
 <input type="hidden" name="nowsort" value="${requestScope.sort }">
