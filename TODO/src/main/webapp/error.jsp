@@ -18,8 +18,8 @@ main {
 			<c:out value="${requestScope.errormessage }" />
 		</p>
 		<form action="${requestScope.returnjsp }" method="post">
-			<input type="hidden" name="btn" value="error"> <input
-				type="submit" value="戻る">
+			<input type="hidden" name="btn" value="error"> 
+			<input type="submit" value="戻る">
 		</form>
 	</main>
 </body>
