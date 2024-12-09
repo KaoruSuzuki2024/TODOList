@@ -48,8 +48,8 @@ public class TaskEdit extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// リクエストパラメーターの値;
 		String jsp = null;
-		String task_deadline=request.getParameter("task_deadline");
-		
+		String task_deadline = request.getParameter("task_deadline");
+
 		String button = request.getParameter("button");
 
 		String title = request.getParameter("task_title");
@@ -61,116 +61,107 @@ public class TaskEdit extends HttpServlet {
 			if (button != null && !button.isEmpty()) {
 				if (button.equals("clear")) {
 					request.setAttribute("title", "");
-					jsp="/TaskEdit";
-				}
-				else if (button.equals("登録")) {
-				if (task_deadline != null && title != null && content != null&& !title.isEmpty()
-						&& !content.isEmpty()) {
-					if (title.length() < 15 && content.length() < 100) {
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-						Date date=null;
-						try {
-							date=formatter.parse(task_deadline);
-						}
-						catch (ParseException e) {
-							request.setAttribute("errormessage", "間違った型が入力されています");
-							jsp = "/error.jsp";
-							
-						}
-						
-						HttpSession se=request.getSession(false);
-						if(btn.equals("編集")) {
-						UsersBean user=(UsersBean)se.getAttribute("user");
-						
-						TaskBean bean =new TaskBean();
-						String id=request.getParameter("task_id");
-						System.out.println(id);
-						bean.setTask_id(Integer.parseInt(id));
-						bean.setUser_id(user.getId());
-						bean.setDeadline(date);
-						bean.setTitle(title);
-						bean.setContent(content);
-						String priority=request.getParameter("task_priority");
-						System.out.println(priority);
-						bean.setPriority(Integer.parseInt(priority));
-						String check =request.getParameter("task_check");
-						boolean taskcheck;
-						if(check!=null&&!check.isEmpty()) {
-							taskcheck=true;
-						}
-						else {
-							taskcheck=false;
-						}
-						bean.setCheck(taskcheck);
-						UpdateTask updatetask=new UpdateTask();
-						updatetask.execute(bean);
-						}else {
-							UsersBean user=(UsersBean)se.getAttribute("user");
-							
-							TaskBean bean =new TaskBean();
-							bean.setUser_id(user.getId());
-							bean.setDeadline(date);
-							bean.setTitle(title);
-							bean.setContent(content);
-							String priority=request.getParameter("task_priority");
-							System.out.println(priority);
-							bean.setPriority(Integer.parseInt(priority));
-							String check =request.getParameter("task_check");
-							boolean taskcheck;
-							if(check!=null&&!check.isEmpty()) {
-								taskcheck=true;
+					jsp = "/TaskEdit";
+				} else if (button.equals("登録")) {
+					if (task_deadline != null && title != null && content != null && !title.isEmpty()
+							&& !content.isEmpty()) {
+						if (title.length() <= 15 && content.length() <= 100) {
+							SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+							Date date = null;
+							try {
+								date = formatter.parse(task_deadline);
+							} catch (ParseException e) {
+								request.setAttribute("errormessage", "日付が正常な値が入力されていません。");
+								jsp = "/error.jsp";
+
 							}
-							else {
-								taskcheck=false;
+
+							HttpSession se = request.getSession(false);
+							if (btn.equals("編集")) {
+								UsersBean user = (UsersBean) se.getAttribute("user");
+								TaskBean bean = new TaskBean();
+								String id = request.getParameter("task_id");
+								System.out.println(id);
+								bean.setTask_id(Integer.parseInt(id));
+								bean.setUser_id(user.getId());
+								bean.setDeadline(date);
+								bean.setTitle(title);
+								bean.setContent(content);
+								String priority = request.getParameter("task_priority");
+								bean.setPriority(Integer.parseInt(priority));
+								String check = request.getParameter("task_check");
+								boolean taskcheck;
+								if (check != null && !check.isEmpty()) {
+									taskcheck = true;
+								} else {
+									taskcheck = false;
+								}
+								bean.setCheck(taskcheck);
+								UpdateTask updatetask = new UpdateTask();
+								updatetask.execute(bean);
+							} else {
+								UsersBean user = (UsersBean) se.getAttribute("user");
+
+								TaskBean bean = new TaskBean();
+								bean.setUser_id(user.getId());
+								bean.setDeadline(date);
+								bean.setTitle(title);
+								bean.setContent(content);
+								String priority = request.getParameter("task_priority");
+								System.out.println(priority);
+								bean.setPriority(Integer.parseInt(priority));
+								String check = request.getParameter("task_check");
+								boolean taskcheck;
+								if (check != null && !check.isEmpty()) {
+									taskcheck = true;
+								} else {
+									taskcheck = false;
+								}
+								bean.setCheck(taskcheck);
+								InsertTask updatetask = new InsertTask();
+								updatetask.execute(bean);
 							}
-							bean.setCheck(taskcheck);
-							InsertTask updatetask=new InsertTask();
-							updatetask.execute(bean);
+							jsp = "/taskhome.jsp";
+
 						}
-						jsp = "/taskhome.jsp";
-						
-						}
-					} else						
+					} else
 
 					{
-						request.setAttribute("errormessage", "必須項目が入力されていません");
+						request.setAttribute("errormessage", "文字数が超過しました。");
 						jsp = "/error.jsp";
-						
+
 						request.setAttribute("returnjsp", "TaskEdit");
-						
+
 					}
 
-				}
-				else {
-					request.setAttribute("errormessage", "必須項目が入力されていません");
+				} else {
+					request.setAttribute("errormessage", "必須項目が入力されていません。");
 					jsp = "/error.jsp";
 					request.setAttribute("returnjsp", "TaskEdit");
 				}
-			
-			}else if (!btn.equals("error")) {
-				jsp="/TaskEdit.jsp";
-				
-			}else
-			{
-				request.setAttribute("errormessage", "必須項目が入力されていません");
-				jsp="/TaskEdit.jsp";
+
+			} else if (!btn.equals("error")) {
+				jsp = "/TaskEdit.jsp";
+
+			} else {
+				request.setAttribute("errormessage", "エラーが発生しました。ボタンの入力が確認できませんでした。");
+				jsp = "/error.jsp";
 				request.setAttribute("returnjsp", "TaskEdit");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("message", "エラーが発生しました");
+			request.setAttribute("message", "エラーが発生しました。編集画面に戻ります。");
 			jsp = "/error.jsp";
 			request.setAttribute("returnjsp", "TaskEdit");
 		}
 		// JSP への転送
-		
-		if(jsp.equals("/taskhome.jsp"))
-		{
-		response.sendRedirect("http://localhost:8080/TODO/home");
+
+		if (jsp.equals("/taskhome.jsp")) {
+			response.sendRedirect("http://localhost:8080/TODO/home");
+		} else {
+			ServletContext context = request.getServletContext();
+			RequestDispatcher dispatcher = context.getRequestDispatcher(jsp);
+			dispatcher.forward(request, response);
 		}
-		else {
-		ServletContext context = request.getServletContext();
-		RequestDispatcher dispatcher = context.getRequestDispatcher(jsp);
-		dispatcher.forward(request, response);}
 	}
 }
