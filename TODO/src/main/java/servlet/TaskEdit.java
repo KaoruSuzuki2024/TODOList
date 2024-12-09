@@ -31,11 +31,18 @@ public class TaskEdit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		UsersBean user = (UsersBean) session.getAttribute("user");
+		String jsp;
 		// TODO Auto-generated method stub
-
+		if (user == null) {
+			jsp = "/login.jsp";
+		} else {
+			jsp = "/TaskEdit.jsp";
+		}
 		// JSP への転送
 		ServletContext context = getServletContext();
-		RequestDispatcher dispatcher = context.getRequestDispatcher("/TaskEdit.jsp");
+		RequestDispatcher dispatcher = context.getRequestDispatcher(jsp);
 		dispatcher.forward(request, response);
 	}
 

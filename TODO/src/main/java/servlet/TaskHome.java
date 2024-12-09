@@ -67,9 +67,6 @@ public class TaskHome extends HttpServlet {
 		String jsp;
 		HttpSession session = request.getSession(false);
 		UsersBean user = (UsersBean) session.getAttribute("user");
-		//ログイン画面と接続するまで
-		user = new UsersBean();
-		user.setId(1);
 		try {
 			if (btn != null && !btn.isEmpty()) {
 				if (btn.equals("logout")) {
