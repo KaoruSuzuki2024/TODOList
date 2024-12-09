@@ -14,46 +14,59 @@
 		<h1>${sessionScope.user.name }様、達成済みタスク一覧</h1>
 	</header>
 	<main>
-		<form action = "achieve" method = "post">
-			<input type = "hidden" name = "nowsort" value = "${requestScope.sort }">
-			<input type = "hidden" name = "btn" value = "sort">
-			<%
-			String sort = (String)request.getAttribute("sort");
-				if(sort.equals("dead")){
-			%>
-					<p><input type = "submit" value = "締切順"></p>
-			<%
-				}else if(sort.equals("priority")){
-			%>
-					<p><input type = "submit" value = "優先度順"></p>
-			<%	} //if%>
-		</form>
-
-		<form action = "home" method = "get">
-			<input type = "hidden" name = "btn" value = "home">
-			<input type = "submit" value = "ホーム">
-		</form>
+		<table >
+			<tr>
+				<td>
+					<form action = "achieve" method = "post">
+						<input type = "hidden" name = "nowsort" value = "${requestScope.sort }">
+						<input type = "hidden" name = "btn" value = "sort">
+						<%
+						String sort = (String)request.getAttribute("sort");
+							if(sort.equals("dead")){
+						%>
+								<p><input type = "submit" value = "締切順"></p>
+						<%
+							}else if(sort.equals("priority")){
+						%>
+								<p><input type = "submit" value = "優先度順"></p>
+						<%	} //if%>
+					</form>
+				</td>
+				<td class = "home">
+					<form action = "home" method = "get">
+						<input type = "hidden" name = "btn" value = "home">
+						<input type = "submit" value = "ホーム" class = "home">
+					</form>
+				</td>
+			</tr>
+		</table>
 		
 		<form action = "achieve" method = "post">
-			<label><input type="radio" name="btn" value="delete" checked="checked">選択削除</label>
-			<label><input type="radio" name="btn" value="unachieve">未達成に戻す</label>
-			<input type = "submit" value = "実行">
+			<table>
+				<tr>
+					<td>
+						<label><input type="radio" name="btn" value="delete" checked="checked">選択削除</label>
+						<label><input type="radio" name="btn" value="unachieve">未達成に戻す</label>
+						<input type = "submit" value = "実行">
+					</td>
+				<tr>
+			<table>
 			<table border = "1">
 				<tr>
 					<th class = "check"></th>
-					<th>締切日</th>
+					<th class = "deadline">締切日</th>
 					<th>タイトル</th>
-					<th>優先度</th>
+					<th class = "priority">優先度</th>
 					<th></th>
 				<tr>
 				<c:forEach var = "task" items = "${requestScope.tasks }">
 					<tr>
-						<td>
+						<td class = "chk">
 							<input type = "checkbox" name = "tasksid" value = "${task.task_id }">
 						</td>
 						<td><fmt:formatDate value = "${task.deadline }" type = "DATE" pattern = "yyyy/MM/dd"/></td>
 						<td><c:out value = "${task.title }"/></td>
-						<td><c:out value = "${task.priority }"/></td>
+						<td class = "pri"><c:out value = "${task.priority }"/></td>
 						<td>Congratulations!!</td>
 					</tr>
 				</c:forEach>
