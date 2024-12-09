@@ -27,7 +27,7 @@ public class SearchTask {
 	        request.setAttribute("check", bean.isCheck());
 	        request.setAttribute("taskid", bean.getTask_id());
 			//request.setAttribute("taskdata", bean);
-			jsp = "/TaskEdit.jsp";
+			jsp = "/taskedit.jsp";
 		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
