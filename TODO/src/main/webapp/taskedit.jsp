@@ -69,8 +69,8 @@ form {
 	<form action="TaskEdit" method ="post">
 		<ul>
 			<li class="task_deadline"><label for="task_dealine">*締切日:</label>
-				<input type="date" name="task_deadline"  min="2000-1-1"
-				max="2035-12-31"  id ="task_deadline" value="2020-1-5"></li>
+				<input type="date" name="task_deadline"  min="2000-01-01"
+				max="2035-12-31"  id ="task_deadline" value="${requestScope.taskdate }"></li>
 
 
 			<li class="task_title"><label for="task_title">*タイトル:</label> <input
