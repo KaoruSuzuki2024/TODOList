@@ -19,7 +19,6 @@ import service.CreatUnachievedPriority;
 import service.DeleteTask;
 import service.SearchTask;
 
-
 /**
  * Servlet implementation class TaskHome
  */
@@ -38,9 +37,9 @@ public class TaskHome extends HttpServlet {
 		//user = new UsersBean();
 		//user.setId(1);
 		//ログインされてなければログインページに飛ぶ
-		if(user == null) {
+		if (user == null) {
 			jsp = "/login.jsp";
-		}else {
+		} else {
 			//タスク一覧を作成
 			try {
 				creatList(request, user);
@@ -52,7 +51,7 @@ public class TaskHome extends HttpServlet {
 				jsp = "/error.jsp";
 			}
 		}
-		
+
 		ServletContext context = getServletContext();
 		RequestDispatcher rd = context.getRequestDispatcher(jsp);
 		rd.forward(request, response);
@@ -69,47 +68,46 @@ public class TaskHome extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		UsersBean user = (UsersBean) session.getAttribute("user");
 		//ログイン画面と接続するまで
-				user = new UsersBean();
-				user.setId(1);
+		user = new UsersBean();
+		user.setId(1);
 		try {
-			if(btn != null && !btn.isEmpty()) {
-				if(btn.equals("logout")) {
+			if (btn != null && !btn.isEmpty()) {
+				if (btn.equals("logout")) {
 					request.setAttribute("message", "ログアウトしますか？");
 					request.setAttribute("logout", "ログアウト");
 					jsp = "/check.jsp";
-				}else if(btn.equals("regist")) {
+				} else if (btn.equals("regist")) {
 					Date date = new Date(); // ここでDate型の変数を取得
-		        	SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-		        	String formattedDate = formatter.format(date);
-		        	request.setAttribute("date", formattedDate);
-		        	jsp = "/TaskEdit.jsp";
-				}else if(btn.equals("sort")) {
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+					String formattedDate = formatter.format(date);
+					request.setAttribute("date", formattedDate);
+					jsp = "/TaskEdit.jsp";
+				} else if (btn.equals("sort")) {
 					String nowsort = request.getParameter("nowsort");
-					if(nowsort.equals("dead")) {
+					if (nowsort.equals("dead")) {
 						CreatUnachievedPriority creatlist = new CreatUnachievedPriority();
-						creatlist.execute(request,Integer.toString(user.getId()));
+						creatlist.execute(request, Integer.toString(user.getId()));
 						sort = "priority";
-					}else if(nowsort.equals("priority")) {
+					} else if (nowsort.equals("priority")) {
 						CreatUnachievedDead search = new CreatUnachievedDead();
-						search.execute(request,Integer.toString(user.getId()));
+						search.execute(request, Integer.toString(user.getId()));
 						sort = "dead";
 					}
 					jsp = "/taskhome.jsp";
-				}else if(btn.equals("delete")) {
+				} else if (btn.equals("delete")) {
 					String taskid = request.getParameter("taskid");
-					request.setAttribute("message","削除してもよいですか");
+					request.setAttribute("message", "削除してもよいですか");
 					request.setAttribute("task_id", taskid);
 					request.setAttribute("returnjsp", "home");
 					jsp = "/check.jsp";
-				}else if(btn.equals("update")) {
+				} else if (btn.equals("update")) {
 					SearchTask search = new SearchTask();
 					search.execute(request);
-					search.execute(request);
-		        	jsp = "/TaskEdit.jsp";
-				}else if(btn.equals("yes")){
+					jsp = "/TaskEdit.jsp";
+				} else if (btn.equals("yes")) {
 					String del = request.getParameter("task_id");
 					String log = request.getParameter("logout");
-					if(del != null && del.isEmpty()) {
+					if (del != null && del.isEmpty()) {
 						DeleteTask delete = new DeleteTask();
 						delete.execute(request);
 						try {
@@ -122,66 +120,63 @@ public class TaskHome extends HttpServlet {
 							e.printStackTrace();
 							jsp = "/error.jsp";
 						}
-					}else if(log != null && !log.isEmpty()) {
+					} else if (log != null && !log.isEmpty()) {
 						session.invalidate();
 						jsp = "/login.jsp";
-					}
-					else {
+					} else {
 						request.setAttribute("returnjsp", "home");
-						request.setAttribute("errormessage", "エラーが発生しました。もう一度入力してください。");
+						request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 						jsp = "/error.jsp";
 					}
-				}else if(btn.equals("no")){
+				} else if (btn.equals("no")) {
 					try {
-						creatList(request,user);
+						creatList(request, user);
 						jsp = "/taskhome.jsp";
 					} catch (Exception e) {
 						System.out.println("リストの作成に失敗しました。");
 						request.setAttribute("returnjsp", "home");
-						request.setAttribute("errormessage", "エラーが発生しました。もう一度お願いします。");
+						request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 						e.printStackTrace();
 						jsp = "/error.jsp";
 					}
-				}else if(btn.equals("error")) {
+				} else if (btn.equals("error")) {
 					try {
-						creatList(request,user);
+						creatList(request, user);
 						jsp = "/taskhome.jsp";
 					} catch (Exception e) {
 						System.out.println("リストの作成に失敗しました。");
 						request.setAttribute("returnjsp", "home");
-						request.setAttribute("errormessage", "エラーが発生しました。もう一度お願いします。");
+						request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 						e.printStackTrace();
 						jsp = "/error.jsp";
 					}
-				}
-				else{
-					request.setAttribute("errormessage", "エラーが発生しました");
+				} else {
+					request.setAttribute("errormessage", "ボタンの入力が確認できませんでした。");
 					request.setAttribute("returnjsp", "home");
 					jsp = "/error.jsp";
 				}
-			}else {
-				request.setAttribute("errormessage", "ボタンが押されませんでした");
+			} else {
+				request.setAttribute("errormessage", "ボタンの入力が確認できませんでした。");
 				request.setAttribute("returnjsp", "home");
 				jsp = "/error.jsp";
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("returnjsp", "home");
-			request.setAttribute("errormessage", "エラーが発生しました");
+			request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 			jsp = "/error.jsp";
 		}
-		
+
 		request.setAttribute("sort", sort);
-		
+
 		ServletContext context = getServletContext();
 		RequestDispatcher rd = context.getRequestDispatcher(jsp);
 		rd.forward(request, response);
 	}
 
-	
-	public void creatList(HttpServletRequest request,UsersBean user)throws Exception{
+	public void creatList(HttpServletRequest request, UsersBean user) throws Exception {
 		CreatUnachievedDead search = new CreatUnachievedDead();
-		search.execute(request,Integer.toString(user.getId()));
+		search.execute(request, Integer.toString(user.getId()));
 		request.setAttribute("sort", "dead");
 	}
 }
