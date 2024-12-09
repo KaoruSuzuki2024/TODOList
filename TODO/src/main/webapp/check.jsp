@@ -31,7 +31,7 @@
 			<input type="hidden" name="btn" value="yes"> <input
 				type="submit" value="はい">
 		</form>
-		<form action="${request.Scope.returnjsp }" method="post">
+		<form action="${requestScope.returnjsp }" method="post">
 			<input type="hidden" name="btn" value="no"> <input
 				type="submit" value="いいえ">
 		</form>
