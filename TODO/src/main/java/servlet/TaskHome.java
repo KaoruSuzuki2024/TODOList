@@ -78,7 +78,7 @@ public class TaskHome extends HttpServlet {
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 					String formattedDate = formatter.format(date);
 					request.setAttribute("date", formattedDate);
-					jsp = "/TaskEdit.jsp";
+					jsp = "/taskedit.jsp";
 				} else if (btn.equals("sort")) {
 					String nowsort = request.getParameter("nowsort");
 					if (nowsort.equals("dead")) {
@@ -100,7 +100,7 @@ public class TaskHome extends HttpServlet {
 				} else if (btn.equals("update")) {
 					SearchTask search = new SearchTask();
 					search.execute(request);
-					jsp = "/TaskEdit.jsp";
+					jsp = "/taskedit.jsp";
 				} else if (btn.equals("yes")) {
 					String del = request.getParameter("task_id");
 					String log = request.getParameter("logout");
@@ -113,7 +113,7 @@ public class TaskHome extends HttpServlet {
 						} catch (Exception e) {
 							System.out.println("リストの作成に失敗しました。");
 							request.setAttribute("returnjsp", "home");
-							request.setAttribute("errormessage", "エラーが発生しました。Lホーム画面に戻ります。");
+							request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 							e.printStackTrace();
 							jsp = "/error.jsp";
 						}
@@ -122,7 +122,7 @@ public class TaskHome extends HttpServlet {
 						jsp = "/login.jsp";
 					} else {
 						request.setAttribute("returnjsp", "home");
-						request.setAttribute("errormessage", "エラーが発生しました。Yホーム画面に戻ります。");
+						request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 						jsp = "/error.jsp";
 					}
 				} else if (btn.equals("no")) {
@@ -132,7 +132,7 @@ public class TaskHome extends HttpServlet {
 					} catch (Exception e) {
 						System.out.println("リストの作成に失敗しました。");
 						request.setAttribute("returnjsp", "home");
-						request.setAttribute("errormessage", "エラーが発生しました。Pホーム画面に戻ります。");
+						request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 						e.printStackTrace();
 						jsp = "/error.jsp";
 					}
@@ -143,7 +143,7 @@ public class TaskHome extends HttpServlet {
 					} catch (Exception e) {
 						System.out.println("リストの作成に失敗しました。");
 						request.setAttribute("returnjsp", "home");
-						request.setAttribute("errormessage", "エラーが発生しました。Lホーム画面に戻ります。");
+						request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 						e.printStackTrace();
 						jsp = "/error.jsp";
 					}
@@ -160,7 +160,7 @@ public class TaskHome extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("returnjsp", "home");
-			request.setAttribute("errormessage", "エラーが発生しました。Eホーム画面に戻ります。");
+			request.setAttribute("errormessage", "エラーが発生しました。ホーム画面に戻ります。");
 			jsp = "/error.jsp";
 		}
 
