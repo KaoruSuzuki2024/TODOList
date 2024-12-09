@@ -80,9 +80,7 @@ public class TaskEdit extends HttpServlet {
 							} catch (ParseException e) {
 								request.setAttribute("errormessage", "日付が正常な値が入力されていません。");
 								jsp = "/error.jsp";
-
 							}
-
 							HttpSession se = request.getSession(false);
 							if (btn.equals("編集")) {
 								UsersBean user = (UsersBean) se.getAttribute("user");

@@ -50,7 +50,7 @@ public class TaskDao {
 			pstatement.setInt(1, tBean.getUser_id());
 			pstatement.setString(2,tBean.getTitle());
 			Date date = tBean.getDeadline();
-			java.sql.Date da = new java.sql.Date(date.getYear(), date.getMonth(), date.getDay());
+			java.sql.Date da = new java.sql.Date(date.getTime());
 			pstatement.setDate(3,da);
 			pstatement.setInt(4, tBean.getPriority());
 			pstatement.setString(5,tBean.getContent());
@@ -83,7 +83,7 @@ public class TaskDao {
 			
 			pstatement.setString(1,tBean.getTitle());
 			Date date = tBean.getDeadline();
-			java.sql.Date da = new java.sql.Date(date.getYear(), date.getMonth(), date.getDay());
+			java.sql.Date da = new java.sql.Date(date.getTime());
 			pstatement.setDate(2,da);
 			pstatement.setInt(3, tBean.getPriority());
 			pstatement.setString(4,tBean.getContent());
